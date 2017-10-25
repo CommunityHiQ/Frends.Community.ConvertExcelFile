@@ -1,4 +1,4 @@
-- [FRENDS.Community.Excel.ConvertExcelFile](#FRENDS.Community.Excel.ConvertExcelFile)
+﻿- [FRENDS.Community.Excel.ConvertExcelFile](#FRENDS.Community.Excel.ConvertExcelFile)
    - [Installing](#installing)
    - [Building](#building)
    - [Contributing](#contributing)

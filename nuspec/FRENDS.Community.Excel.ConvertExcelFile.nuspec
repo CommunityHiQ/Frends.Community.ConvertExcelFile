@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>FRENDS.Community.Excel.ConvertExcelFile</id>
+    <version>1.0.2.0</version>
+    <title>FRENDS ConvertExcelFile task</title>
+    <authors>HiQ Finland</authors>
+    <owners />
+    <description>FRENDS task for converting Excel files to XML or CSV according to the task input parameters.</description>
+    <summary />
+    <dependencies />
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" />
+      <frameworkAssembly assemblyName="System.Text" />
+      <frameworkAssembly assemblyName="Excel" />
+      <frameworkAssembly assemblyName="System.Data" />
+      <frameworkAssembly assemblyName="System.IO" />
+      <frameworkAssembly assemblyName="System.ComponentModel" />
+      <frameworkAssembly assemblyName="System.Xml" />
+      <frameworkAssembly assemblyName="Frends.Tasks.Attributes" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="..\FRENDS.Community.Excel.ConvertExcelFile\bin\release\FRENDS.Community.Excel.ConvertExcelFile.dll" target="lib\net45\FRENDS.Community.Excel.ConvertExcelFile.dll" />
+    <file src="..\FRENDS.Community.Excel.ConvertExcelFile\bin\release\FRENDS.Community.Excel.ConvertExcelFile.XML" target="lib\net45\FRENDS.Community.Excel.ConvertExcelFile.XML" />
+    <file src="..\FRENDS.Community.Excel.ConvertExcelFile\lib\Frends.Tasks.Attributes.dll" target="lib\net45\Frends.Tasks.Attributes.dll" />
+	<file src="..\FRENDS.Community.Excel.ConvertExcelFile\lib\Excel.4.5.dll" target="lib\net45\Excel.4.5.dll" />
+	<file src="..\FRENDS.Community.Excel.ConvertExcelFile\lib\ICSharpCode.SharpZipLib.dll" target="lib\net45\ICSharpCode.SharpZipLib.dll" />
+  </files>
+</package>
