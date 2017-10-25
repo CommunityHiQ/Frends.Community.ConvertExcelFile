@@ -147,6 +147,10 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// <summary>
         /// Converts IExcelDataReader object to XML.
         /// </summary>
+        /// <param name="excelReader">Interface for  reading Excel data.</param>
+        /// <param name="result">Excel DataSet</param>
+        /// <param name="options">Input configurations</param>
+        /// <param name="file_name">Excel file name to be read</param>
         /// <returns>String containing contents in XML format</returns>
         private static Result ConvertToXml(IExcelDataReader excelReader, DataSet result, Options options, string file_name)
         {
@@ -219,8 +223,11 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         }
 
         /// <summary>
-        /// Converts IExcelDataReader object to CSV.
+        /// Converts IExcelDataReader object to XML
         /// </summary>
+        /// <param name="excelReader">Interface for  reading Excel data.</param>
+        /// <param name="result">Excel DataSet</param>
+        /// <param name="options">Input configurations</param>
         /// <returns>String containing contents in CSV format</returns>
         private static Result ConvertToCSV(IExcelDataReader excelReader, DataSet result, Options options)
         {
