@@ -14,24 +14,24 @@ This repository contais FRENDS4 Community Excel Tasks
 
 ## Installing
 You can install the task via FRENDS UI Task view or you can find the nuget package from the following nuget feed
-https://www.myget.org/F/frends/api/v2
+https://www.myget.org/F/frends/api/v3/index.json
 
 ## Building
-Ensure that you have https://www.myget.org/F/frends/api/v2 added to your nuget feeds
+Ensure that you have https://www.myget.org/F/frends/api/v3/index.json added to your nuget feeds
 
 Clone a copy of the repo
 
-git clone https://github.com/FrendsPlatform/Frends.Web.git
+git clone https://github.com/CommunityHiQ/Frends.Community.Excel.ConvertExcelFile.git
 
 Restore dependencies
 
-nuget restore frends.web`
+nuget restore Frends.Community.Excel.ConvertExcelFile
 
 Rebuild the project
 
 Run Tests with nunit3. Tests can be found under
 
-Frends.Web.Tests\bin\Release\Frends.Web.Tests.dll
+Frends.Community.Excel.ConvertExcelFileTests\bin\Release\FRENDS.Community.Excel.ConvertExcelFileTests.dll
 
 Create a nuget package
 

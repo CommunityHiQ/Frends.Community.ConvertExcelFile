@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Text;
-using Excel;
 using System.Data;
 using System.IO;
 using System.ComponentModel;
 using System.Xml;
 using Frends.Tasks.Attributes;
+using ExcelDataReader;
+using Newtonsoft.Json.Linq;
 
 namespace FRENDS.Community.Excel.ConvertExcelFile
 {
@@ -36,7 +37,11 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// <summary>
         /// Format output string as CSV.
         /// </summary>
-        CSV
+        CSV,
+        /// <summary>
+        /// Format output string as JSON
+        /// </summary>
+        JSON
     }
 
     /// <summary>
@@ -53,12 +58,12 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// <summary>
         /// Format output string as XML or CSV.
         /// </summary>
-        public OutputFileType outputFileType { get; set; }
+        public OutputFileType OutputFileType { get; set; }
 
         /// <summary>
         /// Csv separator
         /// </summary>
-        [ConditionalDisplay(nameof(outputFileType), OutputFileType.CSV)]
+        [ConditionalDisplay(nameof(OutputFileType), OutputFileType.CSV)]
         [DefaultValue(@";")]
         [DefaultDisplayType(DisplayType.Text)]
         public string CsvSeparator { get; set; }
@@ -67,10 +72,14 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// If set to true, outputs column headers as numbers instead of letters.
         /// </summary>
         [DefaultValue(false)]
-        [ConditionalDisplay(nameof(outputFileType), OutputFileType.XML)]
+        [ConditionalDisplay(nameof(OutputFileType), OutputFileType.XML)]
         public bool UseNumbersAsColumnHeaders { get; set; }
+        /// <summary>
+        /// Choose if exception should be thrown when conversion fails.
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ThrowErrorOnfailure { get; set; }
     }
-
     /// <summary>
     /// Result class
     /// </summary>
@@ -79,53 +88,70 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// <summary>
         /// Outputs converted csv/xml data
         /// </summary>
-        public string resultData { get; set; }
+        [DefaultValue("")]
+        public string ResultData { get; set; }
+        /// <summary>
+        /// Was the conversion successful
+        /// </summary>
+        [DefaultValue(false)]
+        public Boolean Success { get; set; }
+        /// <summary>
+        /// Exception message
+        /// </summary>
+        [DefaultValue("")]
+        public string Message { get; set; }
     }
-
     /// <summary>
     /// ExcelClass
     /// </summary>
     public class ExcelClass
     {
         /// <summary>
-        /// Reads Excel files and converts it to XML or CSV according to the task input parameters.
+        /// Reads Excel files and converts it to XML JSON or CSV according to the task input parameters.
         /// </summary>
         /// <returns>String containing the file contents as XML or CSV format</returns>
         public static Result ConvertExcelFile(Input input, Options options)
         {
-            Result resultData = new Result();
-            FileStream stream = new FileStream(input.Path, FileMode.Open);
-            IExcelDataReader excelReader;
-            var input_filetype = Path.GetExtension(input.Path).ToLower();
+            Result resultData = new Result
+            {
+                Success = false
+            };
 
-            if (input_filetype == ".xlsx")
+            try
             {
-                excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-            }
-            else if (input_filetype == ".xls")
-            {
-                excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-            }
-            else
-            {
-                throw new ArgumentException("Unknown input file type. Please use .xlsx or .xls.");
-            }
+                using (FileStream stream = new FileStream(input.Path, FileMode.Open))
+                {
+                    using (IExcelDataReader excelReader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        var input_filetype = Path.GetExtension(input.Path).ToLower();
+                        DataSet result = excelReader.AsDataSet();
 
-            DataSet result = excelReader.AsDataSet();
-          
-
-            if (options.outputFileType == OutputFileType.XML)
-            {
-                resultData = ConvertToXml(excelReader, result, options, Path.GetFileName(input.Path));
+                        switch (options.OutputFileType)
+                        {
+                            case OutputFileType.XML:
+                                resultData = ConvertToXml(excelReader, result, options, Path.GetFileName(input.Path));
+                                break;
+                            case OutputFileType.CSV:
+                                resultData = ConvertToCSV(result, options);
+                                break;
+                            case OutputFileType.JSON:
+                                resultData = ConvertToJSON(result, options, Path.GetFileName(input.Path));
+                                break;
+                        }
+                    }
+                }
+                resultData.Success = true;
             }
-            else
+            catch (Exception ex)
             {
-                resultData = ConvertToCSV(excelReader, result, options);
+                if (options.ThrowErrorOnfailure)
+                {
+                    throw new Exception(ex.ToString());
+                }
+                resultData.Message = ex.ToString();
             }
-            excelReader.Close();
             return resultData;
         }
-
         /// <summary>
         /// Converts column header index to letter, as Excel does in its GUI.
         /// </summary>
@@ -155,8 +181,11 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         private static Result ConvertToXml(IExcelDataReader excelReader, DataSet result, Options options, string file_name)
         {
             Result resultClass = new Result();
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.OmitXmlDeclaration = true;
+
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = true
+            };
 
             StringBuilder builder = new StringBuilder();
             using (StringWriter sw = new StringWriter(builder))
@@ -195,7 +224,8 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
                                         }
 
                                         xw.WriteStartElement("column");
-                                        if (options.UseNumbersAsColumnHeaders) {
+                                        if (options.UseNumbersAsColumnHeaders)
+                                        {
                                             xw.WriteAttributeString("column_header", (j + 1).ToString());
                                         }
                                         else
@@ -216,22 +246,21 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
                     }
                     xw.WriteEndDocument();
                     xw.Close();
-                    resultClass.resultData += builder.ToString();
+                    resultClass.ResultData += builder.ToString();
                 }
                 return resultClass;
             }
         }
-
         /// <summary>
-        /// Converts IExcelDataReader object to XML
+        /// Converts IExcelDataReader object to CSV
         /// </summary>
-        /// <param name="excelReader">Interface for  reading Excel data.</param>
         /// <param name="result">Excel DataSet</param>
         /// <param name="options">Input configurations</param>
         /// <returns>String containing contents in CSV format</returns>
-        private static Result ConvertToCSV(IExcelDataReader excelReader, DataSet result, Options options)
+        private static Result ConvertToCSV(DataSet result, Options options)
         {
             Result resultClass = new Result();
+
             foreach (DataTable table in result.Tables)
             {
                 // Read only wanted worksheets. If none is specified read all. //
@@ -241,21 +270,92 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
                     {
                         for (int j = 0; j < table.Columns.Count; j++)
                         {
-                            resultClass.resultData += table.Rows[i].ItemArray[j];
+                            resultClass.ResultData += table.Rows[i].ItemArray[j];
                             if (j < table.Columns.Count - 1)
                             {
-                                resultClass.resultData += options.CsvSeparator;
+                                resultClass.ResultData += options.CsvSeparator;
                             }
                         }
-                        resultClass.resultData += "\n";
+                        resultClass.ResultData += "\n";
                     }
                 }
             }
             return resultClass;
 
         }
+        /// <summary>
+        /// Converts ExcelReadr DataSet to JSON
+        /// </summary>
+        /// <returns>Result-object</returns>
+        private static Result ConvertToJSON(DataSet result, Options options, string filename)
+        {
+            Result resultClass = new Result();
+            //this will hold the final product 
+            JObject workbook = new JObject();
+            //container for worksheets
+            JArray wsItemContainer = new JArray();
+            foreach (DataTable table in result.Tables)
+            {
+                if (options.ReadOnlyWorkSheetWithName.Contains(table.TableName) || options.ReadOnlyWorkSheetWithName.Length == 0)
+                {
+                    //container for all rows
+                    JArray rowItemContainer = new JArray();
+                    for (int i = 0; i < table.Rows.Count; i++)
+                    {
+                        bool rowElementIsWritten = false;
+                        //a single row
+                        JObject rItem = new JObject();
+                        //a container for all columns
+                        JArray columnItemContainer = new JArray();
 
+                        for (int j = 0; j < table.Columns.Count; j++)
+                        {
+                            string content = table.Rows[i].ItemArray[j].ToString();
+                            if (!string.IsNullOrEmpty(content))
+                            {
+                                //create a new column item with a header(A,B,C..) and a value 
+                                JObject cItem = new JObject
+                                {
+                                    new JProperty("column_header", ColumnIndexToColumnLetter(j+1)),
+                                    new JProperty("value", content)
+                                };
+                                //write the row header/number(1,2,3..) to a row item 
+                                if (!rowElementIsWritten)
+                                {
+                                    rItem.Add(new JProperty("row_header", (i + 1)));
+                                    rowElementIsWritten = true;
+                                }
+                                //add column item to a container
+                                columnItemContainer.Add(cItem);
+                            }
+                        }
+                        //if row header is written, add all the columns in the container to the row item
+                        //This also ensures that no empty elements are written
+                        if (rowElementIsWritten)
+                        {
+                            rItem.Add(new JProperty("column", columnItemContainer));
+                            rowItemContainer.Add(rItem);
+                        }
+                    }
+                    //create a new worksheet, add all rowitems
+                    JObject wsItem = new JObject
+                    {
+                        new JProperty("worksheet_name", table.TableName),
+                        new JProperty("row", rowItemContainer)
+                    };
+                    //worksheet is added to a container holding other worksheets
+                    wsItemContainer.Add(wsItem);
+                }
+                //create a new workbook and add all worksheets
+                workbook = new JObject
+            {
+                new JProperty("workbook_name", filename),
+                new JProperty("worksheet", wsItemContainer)
+            };
+
+            }
+            resultClass.ResultData = workbook.ToString();
+            return resultClass;
+        }
     }
 }
-
-
