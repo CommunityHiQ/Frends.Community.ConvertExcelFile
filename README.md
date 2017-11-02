@@ -1,4 +1,4 @@
-- [FRENDS.Community.Excel.ConvertExcelFile](#FRENDS.Community.Excel.ConvertExcelFile)
+﻿- [FRENDS.Community.Excel.ConvertExcelFile](#FRENDS.Community.Excel.ConvertExcelFile)
    - [Installing](#installing)
    - [Building](#building)
    - [Contributing](#contributing)
@@ -14,28 +14,28 @@ This repository contais FRENDS4 Community Excel Tasks
 
 ## Installing
 You can install the task via FRENDS UI Task view or you can find the nuget package from the following nuget feed
-https://www.myget.org/F/frends/api/v2
+https://www.myget.org/F/frends/api/v3/index.json
 
 ## Building
-Ensure that you have https://www.myget.org/F/frends/api/v2 added to your nuget feeds
+Ensure that you have https://www.myget.org/F/frends/api/v3/index.json added to your nuget feeds
 
 Clone a copy of the repo
 
-git clone https://github.com/FrendsPlatform/Frends.Web.git
+git clone https://github.com/CommunityHiQ/Frends.Community.Excel.ConvertExcelFile.git
 
 Restore dependencies
 
-nuget restore frends.web`
+nuget restore Frends.Community.Excel.ConvertExcelFile
 
 Rebuild the project
 
 Run Tests with nunit3. Tests can be found under
 
-Frends.Web.Tests\bin\Release\Frends.Web.Tests.dll
+Frends.Community.Excel.ConvertExcelFileTests\bin\Release\FRENDS.Community.Excel.ConvertExcelFileTests.dll
 
 Create a nuget package
 
-nuget pack nuspec/Frends.Web.nuspec`
+nuget pack nuspec/FRENDS.Community.Excel.ConvertExcelFile.nuspec`
 
 ## Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -63,14 +63,16 @@ Reads Excel file and converts it to XML or CSV according to the task input param
 | Property  | Type  | Description |
 |-----------|-------|-------------|
 | ReadOnlyWorkSheetWithName  | string | Excel work sheet name to be read. If empty, all work sheets are read. | 
-| outputFileType| Enum(typeOf(OutputFileType) | Choose format output string as XML or CSV. |
+| outputFileType| Enum(typeOf(OutputFileType) | Choose format output string as XML, CSV or JSON. |
 | CsvSeparator| string | Csv Separator |
 | UseNumbersAsColumnHeaders| bool | If set to true, outputs column headers as numbers instead of letters. |
+| ThrowErrorOnfailure| bool | Throws an exception if conversion fails. | 
 
 #### Result
 | Property  | Type  | Description |
 |-----------|-------|-------------|
-| result| string  | Returns result object (string). |
-
+| ResultData | string  | Returns result object (string). |
+| Success | bool | False if the conversion fails |
+| Message | string | Exception message |
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details

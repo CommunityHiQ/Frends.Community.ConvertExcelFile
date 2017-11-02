@@ -91,7 +91,7 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         [DefaultValue("")]
         public string ResultData { get; set; }
         /// <summary>
-        /// Was the conversion successful
+        /// False if conversion fails
         /// </summary>
         [DefaultValue(false)]
         public Boolean Success { get; set; }
