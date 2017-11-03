@@ -72,7 +72,7 @@ Reads Excel file and converts it to XML or CSV according to the task input param
 | Property  | Type  | Description |
 |-----------|-------|-------------|
 | ResultData | string  | Returns result object (string). |
-| Success | bool | False if the conversion fails |
+| Success | bool | Task execution result. |
 | Message | string | Exception message |
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details
