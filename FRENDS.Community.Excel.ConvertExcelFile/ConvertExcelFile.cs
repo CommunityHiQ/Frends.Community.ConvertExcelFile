@@ -42,14 +42,14 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         [DefaultDisplayType(DisplayType.Text)]
         public string CsvSeparator { get; set; }
         /// <summary>
-        /// If set to true, outputs column headers as numbers instead of letters.
+        /// If set to true, numbers will be used as column headers instead of letters (A = 1, B = 2...) 
         /// </summary>
-        [DefaultValue(false)]
+        [DefaultValue("false")]
         public bool UseNumbersAsColumnHeaders { get; set; }
         /// <summary>
         /// Choose if exception should be thrown when conversion fails.
         /// </summary>
-        [DefaultValue(true)]
+        [DefaultValue("true")]
         public bool ThrowErrorOnFailure { get; set; }
     }
     /// <summary>
@@ -65,7 +65,7 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// <summary>
         /// False if conversion fails
         /// </summary>
-        [DefaultValue(false)]
+        [DefaultValue("false")]
         public Boolean Success { get; set; }
         /// <summary>
         /// Exception message
@@ -130,7 +130,7 @@ namespace FRENDS.Community.Excel.ConvertExcelFile
         /// <summary>
         /// A Frends-task for converting Excel-files to XML, CSV and JSON
         /// </summary>
-        /// <returns>A Result-object holding the converted Excel</returns>
+        /// <returns>Object {string ResultData, bool Success, string Message, JToken ToJson(), string ToCsv()}</returns>
         public static Result ConvertExcelFile(Input input, Options options, CancellationToken cancellationToken)
         {
             Result resultData;
