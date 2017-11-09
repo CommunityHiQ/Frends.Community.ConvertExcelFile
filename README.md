@@ -52,7 +52,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ### ConvertExcelFile
 
-Reads Excel file and converts it to XML or CSV according to the task input parameters.
+Reads Excel file and converts it to XML, CSV and JSON according to the task input parameters.
 
 #### Input
 | Property  | Type  | Description |Example|
@@ -60,19 +60,20 @@ Reads Excel file and converts it to XML or CSV according to the task input param
 | Path  | string | Path of the Excel file to be read. | C:\temp\ExcelFile.xlsx|
 
 #### Options
-| Property  | Type  | Description |
-|-----------|-------|-------------|
-| ReadOnlyWorkSheetWithName  | string | Excel work sheet name to be read. If empty, all work sheets are read. | 
-| outputFileType| Enum(typeOf(OutputFileType) | Choose format output string as XML, CSV or JSON. |
-| CsvSeparator| string | Csv Separator |
-| UseNumbersAsColumnHeaders| bool | If set to true, outputs column headers as numbers instead of letters. |
-| ThrowErrorOnfailure| bool | Throws an exception if conversion fails. | 
+| Property  | Type  | Description |Example|
+|-----------|-------|-------------|-------|
+| ReadOnlyWorkSheetWithName  | string | Excel work sheet name to be read. If empty, all work sheets are read. |Sheet1| 
+| CsvSeparator| string | Csv Separator | ; |
+| UseNumbersAsColumnHeaders| bool | If set to true, outputs column headers as numbers instead of letters. | true |
+| ThrowErrorOnfailure| bool | Throws an exception if conversion fails. |  true |
 
 #### Result
-| Property  | Type  | Description |
-|-----------|-------|-------------|
-| ResultData | string  | Returns result object (string). |
-| Success | bool | Task execution result. |
-| Message | string | Exception message |
+| Property  | Type  | Description |Example|
+|-----------|-------|-------------|-------|
+| ResultData | string  | Returns result as XML| XML-string|
+| Success | bool | Task execution result. | true |
+| Message | string | Exception message | "File not found"|
+|ToCsv() |string | Converts result to CSV| CSV-string |
+|ToJToken() | JToken |  Converts result to Json|Json-string|
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details
