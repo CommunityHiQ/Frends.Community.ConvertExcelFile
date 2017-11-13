@@ -64,7 +64,7 @@ Reads Excel file and converts it to XML, CSV and JSON according to the task inpu
 |-----------|-------|-------------|-------|
 | ReadOnlyWorkSheetWithName  | string | Excel work sheet name to be read. If empty, all work sheets are read. |Sheet1| 
 | CsvSeparator| string | Csv Separator | ; |
-| UseNumbersAsColumnHeaders| bool | If set to true, outputs column headers as numbers instead of letters. | true |
+| UseNumbersAsColumnHeaders| bool | If set to true, numbers will be used as column headers instead of letters (A = 1, B = 2...) | true |
 | ThrowErrorOnfailure| bool | Throws an exception if conversion fails. |  true |
 
 #### Result
