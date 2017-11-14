@@ -10,8 +10,8 @@ namespace FRENDS.Tests
     [TestFixture]
     public class ExcelConvertTests
     {
-        Input input = new Input();
-        Options options = new Options();
+        ExcelClass.Input input = new ExcelClass.Input();
+        ExcelClass.Options options = new ExcelClass.Options();
 
         // Cat image in example files is from Pixbay.com. It is licenced in CC0 Public Domain (Free for commercial use, No attribution required)
         // It is uploaded by Ben_Kerckx https://pixabay.com/en/cat-animal-pet-cats-close-up-300572/
