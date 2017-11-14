@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>FRENDS.Community.Excel.ConvertExcelFile</id>
-    <version>1.0.7.2</version>
+    <version>1.0.0.0</version>
     <title>FRENDS ConvertExcelFile task</title>
     <authors>HiQ Finland</authors>
     <owners />
     <description>FRENDS task for converting Excel files to XML, CSV or JSON</description>
     <summary />
        <dependencies>
-            <dependency id="Frends.Tasks.Attributes" version="[1.2.0]" />
+            <dependency id="Frends.Tasks.Attributes" version="[1.2.1]" />
             <dependency id="Newtonsoft.Json" version="6.0.8" />
 			<dependency id="ExcelDataReader" version="3.2.0"/>
 			<dependency id="ExcelDataReader.DataSet" version="3.2.0"/>
