@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
-    <id>FRENDS.Community.Excel.ConvertExcelFile</id>
-    <version>1.0.20</version>
+    <id>Frends.Community.Excel.ConvertExcelFile</id>
+    <version>1.1.0</version>
     <title>FRENDS ConvertExcelFile task</title>
     <authors>HiQ Finland</authors>
     <owners />
@@ -25,7 +25,7 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="..\FRENDS.Community.Excel.ConvertExcelFile\bin\release\FRENDS.Community.Excel.ConvertExcelFile.dll" target="lib\net45\FRENDS.Community.Excel.ConvertExcelFile.dll" />
-    <file src="..\FRENDS.Community.Excel.ConvertExcelFile\bin\release\FRENDS.Community.Excel.ConvertExcelFile.XML" target="lib\net45\FRENDS.Community.Excel.ConvertExcelFile.XML" />
+    <file src="..\Frends.Community.Excel.ConvertExcelFile\bin\release\Frends.Community.Excel.ConvertExcelFile.dll" target="lib\net45\Frends.Community.Excel.ConvertExcelFile.dll" />
+    <file src="..\Frends.Community.Excel.ConvertExcelFile\bin\release\Frends.Community.Excel.ConvertExcelFile.XML" target="lib\net45\Frends.Community.Excel.ConvertExcelFile.XML" />
   </files>
 </package>

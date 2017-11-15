@@ -1,5 +1,4 @@
-﻿using FRENDS.Community;
-using FRENDS.Community.Excel.ConvertExcelFile;
+﻿using Frends.Community.Excel.ConvertExcelFile;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -10,8 +9,8 @@ namespace FRENDS.Tests
     [TestFixture]
     public class ExcelConvertTests
     {
-        ExcelClass.Input input = new ExcelClass.Input();
-        ExcelClass.Options options = new ExcelClass.Options();
+        private readonly Input input = new Input();
+        private readonly Options options = new Options();
 
         // Cat image in example files is from Pixbay.com. It is licenced in CC0 Public Domain (Free for commercial use, No attribution required)
         // It is uploaded by Ben_Kerckx https://pixabay.com/en/cat-animal-pet-cats-close-up-300572/
