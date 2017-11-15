@@ -7,8 +7,8 @@
     <ProjectGuid>{7BC1701A-1DC1-4303-882A-F08CB39BEC5E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FRENDS.Community.Excel.ConvertExcelFile</RootNamespace>
-    <AssemblyName>FRENDS.Community.Excel.ConvertExcelFile</AssemblyName>
+    <RootNamespace>Frends.Community.Excel.ConvertExcelFile</RootNamespace>
+    <AssemblyName>Frends.Community.Excel.ConvertExcelFile</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\FRENDS.Community.Excel.ConvertExcelFile.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Frends.Community.Excel.ConvertExcelFile.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\FRENDS.Community.Excel.ConvertExcelFile.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Frends.Community.Excel.ConvertExcelFile.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -68,7 +68,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\x86\Release\FRENDS.Community.Excel.ConvertExcelFile.xml</DocumentationFile>
+    <DocumentationFile>bin\x86\Release\Frends.Community.Excel.ConvertExcelFile.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -82,7 +82,8 @@
       <HintPath>..\packages\ExcelDataReader.DataSet.3.2.0\lib\net45\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
     <Reference Include="Frends.Tasks.Attributes, Version=1.2.0.0, Culture=neutral, PublicKeyToken=258fd606323928fc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Frends.Tasks.Attributes.1.2.0\lib\net40\Frends.Tasks.Attributes.dll</HintPath>
+      <HintPath>..\packages\Frends.Tasks.Attributes.1.2.1\lib\net40\Frends.Tasks.Attributes.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertExcelFile.cs" />
+    <Compile Include="Definitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
