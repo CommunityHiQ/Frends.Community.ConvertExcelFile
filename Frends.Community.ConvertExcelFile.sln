@@ -5,8 +5,9 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{569F3F7B-C410-46AB-87F5-25CB8DC3E053}"
 	ProjectSection(SolutionItems) = preProject
-		nuspec\Frends.Community.Excel.ConvertExcelFile.nuspec = nuspec\Frends.Community.Excel.ConvertExcelFile.nuspec
-		Frends.Community.Excel.ConvertExcelFile\FrendsTaskMetadata.json = Frends.Community.Excel.ConvertExcelFile\FrendsTaskMetadata.json
+		nuspec\Frends.Community.ConvertExcelFile.nuspec = nuspec\Frends.Community.ConvertExcelFile.nuspec
+		Frends.Community.ConvertExcelFile\FrendsTaskMetadata.json = Frends.Community.ConvertExcelFile\FrendsTaskMetadata.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frends.Community.ConvertExcelFile", "Frends.Community.ConvertExcelFile\Frends.Community.ConvertExcelFile.csproj", "{7BC1701A-1DC1-4303-882A-F08CB39BEC5E}"
