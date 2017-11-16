@@ -1,4 +1,4 @@
-﻿- [FRENDS.Community.Excel.ConvertExcelFile](#FRENDS.Community.Excel.ConvertExcelFile)
+﻿- [Frends.Community.ConvertExcelFile](#Frends.Community.ConvertExcelFile)
    - [Installing](#installing)
    - [Building](#building)
    - [Contributing](#contributing)
@@ -9,11 +9,11 @@
 		 - [Result](#result)
    - [License](#license)
        
-# FRENDS.Community.Excel.ConvertExcelFile
+# Frends.Community.ConvertExcelFile
 This repository contais FRENDS4 Community Excel Tasks
 
 ## Installing
-You can install the task via FRENDS UI Task view or you can find the nuget package from the following nuget feed
+You can install the task via Frends UI Task view or you can find the nuget package from the following nuget feed
 https://www.myget.org/F/frends/api/v3/index.json
 
 ## Building
@@ -21,21 +21,21 @@ Ensure that you have https://www.myget.org/F/frends/api/v3/index.json added to y
 
 Clone a copy of the repo
 
-git clone https://github.com/CommunityHiQ/Frends.Community.Excel.ConvertExcelFile.git
+git clone https://github.com/CommunityHiQ/Frends.Community.ConvertExcelFile.git
 
 Restore dependencies
 
-nuget restore Frends.Community.Excel.ConvertExcelFile
+nuget restore Frends.Community.ConvertExcelFile
 
 Rebuild the project
 
 Run Tests with nunit3. Tests can be found under
 
-Frends.Community.Excel.ConvertExcelFileTests\bin\Release\FRENDS.Community.Excel.ConvertExcelFileTests.dll
+Frends.Community.ConvertExcelFileTests\bin\Release\Frends.Community.ConvertExcelFileTests.dll
 
 Create a nuget package
 
-nuget pack nuspec/FRENDS.Community.Excel.ConvertExcelFile.nuspec`
+`nuget pack nuspec/Frends.Community.ConvertExcelFile.nuspec`
 
 ## Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.

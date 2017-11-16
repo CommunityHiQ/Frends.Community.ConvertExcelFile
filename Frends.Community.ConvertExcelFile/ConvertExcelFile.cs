@@ -8,7 +8,7 @@ using System.Threading;
 
 #pragma warning disable 1591
 
-namespace Frends.Community.Excel.ConvertExcelFile
+namespace Frends.Community.ConvertExcelFile
 {
     public class ExcelClass
     {
