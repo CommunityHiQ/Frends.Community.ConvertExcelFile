@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace FRENDS.Tests
+namespace Frends.Community.ConvertExcelFileTests
 {
     [TestFixture]
     public class ExcelConvertTests
