@@ -102,9 +102,9 @@
     <None Include="TestData\ExcelTests\In\ExcelTestInput2.xls" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Frends.Community.Excel.ConvertExcelFile\Frends.Community.Excel.ConvertExcelFile.csproj">
+    <ProjectReference Include="..\Frends.Community.ConvertExcelFile\Frends.Community.ConvertExcelFile.csproj">
       <Project>{7BC1701A-1DC1-4303-882A-F08CB39BEC5E}</Project>
-      <Name>Frends.Community.Excel.ConvertExcelFile</Name>
+      <Name>Frends.Community.ConvertExcelFile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
