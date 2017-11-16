@@ -25,7 +25,7 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="..\FRENDS.Community.ConvertExcelFile\bin\release\FRENDS.Community.ConvertExcelFile.dll" target="lib\net45\FRENDS.Community.ConvertExcelFile.dll" />
-    <file src="..\FRENDS.Community.ConvertExcelFile\bin\release\FRENDS.Community.ConvertExcelFile.XML" target="lib\net45\FRENDS.Community.ConvertExcelFile.XML" />
+    <file src="..\Frends.Community.ConvertExcelFile\bin\release\FRENDS.Community.ConvertExcelFile.dll" target="lib\net45\Frends.Community.ConvertExcelFile.dll" />
+    <file src="..\Frends.Community.ConvertExcelFile\bin\release\FRENDS.Community.ConvertExcelFile.XML" target="lib\net45\Frends.Community.ConvertExcelFile.XML" />
   </files>
 </package>
