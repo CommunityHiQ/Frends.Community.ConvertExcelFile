@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
-    <id>FRENDS.Community.ConvertExcelFile</id>
-    <version>1.2.0</version>
-    <title>FRENDS ConvertExcelFile task</title>
+    <id>Frends.Community.ConvertExcelFile</id>
+    <version>1.1.31</version>
+    <title>Frends ConvertExcelFile task</title>
     <authors>HiQ Finland</authors>
     <owners />
-    <description>FRENDS task for converting Excel files to XML, CSV or JSON</description>
+    <description>Frends task for converting Excel files to XML, CSV or JSON</description>
     <summary />
        <dependencies>
             <dependency id="Frends.Tasks.Attributes" version="1.2.1" />
@@ -25,7 +25,8 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="..\Frends.Community.ConvertExcelFile\bin\release\FRENDS.Community.ConvertExcelFile.dll" target="lib\net45\Frends.Community.ConvertExcelFile.dll" />
-    <file src="..\Frends.Community.ConvertExcelFile\bin\release\FRENDS.Community.ConvertExcelFile.XML" target="lib\net45\Frends.Community.ConvertExcelFile.XML" />
+    <file src="..\Frends.Community.ConvertExcelFile\bin\release\Frends.Community.ConvertExcelFile.dll" target="lib\net45\Frends.Community.ConvertExcelFile.dll" />
+    <file src="..\Frends.Community.ConvertExcelFile\bin\release\Frends.Community.ConvertExcelFile.XML" target="lib\net45\Frends.Community.ConvertExcelFile.XML" />
   </files>
 </package>
+
