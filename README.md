@@ -75,6 +75,6 @@ Reads Excel file and converts it to XML, CSV and JSON according to the task inpu
 | Message | string | Exception message | "File not found"|
 |ToXml() |string| Converts result to XML| XML-string|
 |ToCsv() |string | Converts result to CSV| CSV-string |
-|ToJToken() | JToken |  Converts result to Json|Json-string|
+|ToJToken() | JToken |  Converts result to Json||
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details
