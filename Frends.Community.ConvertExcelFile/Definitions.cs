@@ -3,6 +3,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.ComponentModel;
+using System.Data;
+using System.IO;
+using System.Text;
+using System.Threading;
 using System.Xml;
 
 #pragma warning disable 1591
@@ -50,69 +54,54 @@ namespace Frends.Community.ConvertExcelFile
     public class Result
     {
         /// <summary>
-        /// Converted Excel in XML-format
+        /// Converted Excel in DataSet-format
         /// </summary>
-        [DefaultValue("")]
-        public string ResultData { get; set; }
-
+        [DefaultValue(null)]
+        public DataSet ResultData { get; set; }
         /// <summary>
         /// False if conversion fails
         /// </summary>
         [DefaultValue("false")]
         public Boolean Success { get; set; }
-
         /// <summary>
         /// Exception message
         /// </summary>
         [DefaultValue("")]
         public string Message { get; set; }
-
         /// <summary>
         /// Excel-conversion to JSON
         /// </summary>
         /// <returns>JToken</returns>
-        public object ToJson() { return _json; }
-
+        public object ToJson() { return _json.Value;}
         /// <summary>
         /// Excel-conversion to CSV
         /// </summary>
-        /// <returns></returns>
-        public string ToCsv() { return _csv; }
-
-
-        private string _csv;
-        private object _json;
-
+        /// <returns>String</returns>
+        public string ToCsv() { return _csv.Value;}
         /// <summary>
-        /// Constructor for successful conversion
+        /// Excel-conversion to XML
         /// </summary>
-        /// <param name="success">true if conversion was successful</param>
-        /// <param name="resultData">converted Excel in XML-format</param>
-        /// <param name="csv">converted Excel in CSV-format</param>
-        public Result(bool success, string resultData, string csv)
+        /// <returns>String</returns>
+        public string ToXml() { return _xml.Value; }
+        private readonly Lazy<string> _csv;
+        private readonly Lazy<object> _json;
+        private readonly Lazy<string> _xml;
+        //Constructor for successful conversion
+        public Result(bool success, DataSet result, Options options, string filename, CancellationToken cancellationToken)
         {
             Success = success;
-            ResultData = resultData;
-            _csv = csv;
+            ResultData = result;
 
-            if (resultData != null)
-            {
-                //creates a JToken from XML
-                var doc = new XmlDocument();
-                doc.LoadXml(resultData);
-                var jsonString = JsonConvert.SerializeXmlNode(doc);
-                _json = JToken.Parse(jsonString);
-            }
+            _xml = new Lazy<string>(() => ResultData != null ? HelperMethods.ConvertToXml(ResultData,  options, filename, cancellationToken) : null);
+            _json = new Lazy<object>(() => ResultData != null ? HelperMethods.WriteJToken(ResultData, options, filename,cancellationToken) : null);
+            _csv = new Lazy<string>(() => ResultData != null ? HelperMethods.ConvertToCSV(ResultData, options, cancellationToken) : null);
         }
-        /// <summary>
-        /// constructor for failed conversion
-        /// </summary>
-        /// <param name="success">false if conversion failed</param>
-        /// <param name="message">holds the exception message</param>
+        //Constructor for failed conversion
         public Result(bool success, string message)
         {
             Success = success;
             Message = message;
+            ResultData = null;
         }
-    }
+    }    
 }

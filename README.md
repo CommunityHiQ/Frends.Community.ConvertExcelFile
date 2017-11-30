@@ -70,9 +70,10 @@ Reads Excel file and converts it to XML, CSV and JSON according to the task inpu
 #### Result
 | Property  | Type  | Description |Example|
 |-----------|-------|-------------|-------|
-| ResultData | string  | Returns result as XML| XML-string|
+| ResultData | DataSet  | Conversion result as a DataSet| |
 | Success | bool | Task execution result. | true |
 | Message | string | Exception message | "File not found"|
+|ToXml() |string| Converts result to XML| XML-string|
 |ToCsv() |string | Converts result to CSV| CSV-string |
 |ToJToken() | JToken |  Converts result to Json|Json-string|
 ## License
