@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Frends.Community.ConvertExcelFile
@@ -15,7 +12,7 @@ namespace Frends.Community.ConvertExcelFile
     class HelperMethods
     {
         /// <summary>
-        /// Converts DataSet-object to JSON
+        /// Converts DataSet-object to JSON.
         /// </summary>
         /// <param name="result">DataSet-object</param>
         /// <param name="options">Input configurations</param>
@@ -24,7 +21,7 @@ namespace Frends.Community.ConvertExcelFile
         /// <returns>a JToken containing the converted Excel</returns>
         internal static object WriteJToken(DataSet result, Options options, string filename, CancellationToken cancellationToken)
         {
-           var doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.LoadXml(ConvertToXml(result, options, filename, cancellationToken));
             var jsonString = JsonConvert.SerializeXmlNode(doc);
             return JToken.Parse(jsonString);
@@ -69,7 +66,7 @@ namespace Frends.Community.ConvertExcelFile
                             for (int i = 0; i < table.Rows.Count; i++)
                             {
                                 cancellationToken.ThrowIfCancellationRequested();
-                                bool row_element_is_writed = false;
+                                bool row_element_is_written = false;
                                 for (int j = 0; j < table.Columns.Count; j++)
                                 {
                                     cancellationToken.ThrowIfCancellationRequested();
@@ -78,11 +75,11 @@ namespace Frends.Community.ConvertExcelFile
                                     if (String.IsNullOrWhiteSpace(content) == false)
                                     {
 
-                                        if (row_element_is_writed == false)
+                                        if (row_element_is_written == false)
                                         {
                                             xw.WriteStartElement("row");
                                             xw.WriteAttributeString("row_header", (i + 1).ToString());
-                                            row_element_is_writed = true;
+                                            row_element_is_written = true;
                                         }
 
                                         xw.WriteStartElement("column");
@@ -98,7 +95,7 @@ namespace Frends.Community.ConvertExcelFile
                                         xw.WriteEndElement();
                                     }
                                 }
-                                if (row_element_is_writed == true)
+                                if (row_element_is_written == true)
                                 {
                                     xw.WriteEndElement();
                                 }
@@ -114,7 +111,7 @@ namespace Frends.Community.ConvertExcelFile
             }
         }
         /// <summary>
-        /// Converts DataSet-object to CSV
+        /// Converts DataSet-object to CSV.
         /// </summary>
         /// <param name="result">DataSet-object</param>
         /// <param name="options">Input configurations</param>
@@ -150,7 +147,7 @@ namespace Frends.Community.ConvertExcelFile
         }
 
         /// <summary>
-        /// a Helper method
+        /// A Helper method.
         /// Converts column header index to letter, as Excel does in its GUI.
         /// </summary>
         /// <returns>String containing correct letter combination for column.</returns>

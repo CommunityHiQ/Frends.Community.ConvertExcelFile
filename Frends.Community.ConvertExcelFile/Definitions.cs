@@ -1,13 +1,8 @@
 ﻿using Frends.Tasks.Attributes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
-using System.Text;
 using System.Threading;
-using System.Xml;
 
 #pragma warning disable 1591
 
@@ -16,7 +11,7 @@ namespace Frends.Community.ConvertExcelFile
     public class Input
     {
         /// <summary>
-        /// Path to the Excel file
+        /// Path to the Excel file.
         /// </summary>
         [DefaultValue(@"C:\tmp\ExcelFile.xlsx")]
         [DefaultDisplayType(DisplayType.Text)]
@@ -32,14 +27,14 @@ namespace Frends.Community.ConvertExcelFile
         public string ReadOnlyWorkSheetWithName { get; set; }
 
         /// <summary>
-        /// Csv separator
+        /// Csv separator.
         /// </summary>
         [DefaultValue(@";")]
         [DefaultDisplayType(DisplayType.Text)]
         public string CsvSeparator { get; set; }
 
         /// <summary>
-        /// If set to true, numbers will be used as column headers instead of letters (A = 1, B = 2...) 
+        /// If set to true, numbers will be used as column headers instead of letters (A = 1, B = 2...). 
         /// </summary>
         [DefaultValue("false")]
         public bool UseNumbersAsColumnHeaders { get; set; }
@@ -54,32 +49,32 @@ namespace Frends.Community.ConvertExcelFile
     public class Result
     {
         /// <summary>
-        /// Converted Excel in DataSet-format
+        /// Converted Excel in DataSet-format.
         /// </summary>
         [DefaultValue(null)]
         public DataSet ResultData { get; set; }
         /// <summary>
-        /// False if conversion fails
+        /// False if conversion fails.
         /// </summary>
         [DefaultValue("false")]
         public Boolean Success { get; set; }
         /// <summary>
-        /// Exception message
+        /// Exception message.
         /// </summary>
         [DefaultValue("")]
         public string Message { get; set; }
         /// <summary>
-        /// Excel-conversion to JSON
+        /// Excel-conversion to JSON.
         /// </summary>
         /// <returns>JToken</returns>
-        public object ToJson() { return _json.Value;}
+        public object ToJson() { return _json.Value; }
         /// <summary>
-        /// Excel-conversion to CSV
+        /// Excel-conversion to CSV.
         /// </summary>
         /// <returns>String</returns>
-        public string ToCsv() { return _csv.Value;}
+        public string ToCsv() { return _csv.Value; }
         /// <summary>
-        /// Excel-conversion to XML
+        /// Excel-conversion to XML.
         /// </summary>
         /// <returns>String</returns>
         public string ToXml() { return _xml.Value; }

@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Frends.Community.ConvertExcelFile
 {
-    public class ExcelClass
+    public class ExcelTask
     {
         /// <summary>
         /// A Frends-task for converting Excel-files to DataSet, XML, CSV and JSON

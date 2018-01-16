@@ -1,7 +1,7 @@
 ﻿{
   "Tasks": [
     {
-      "TaskMethod": "Frends.Community.ConvertExcelFile.ExcelClass.ConvertExcelFile"
+      "TaskMethod": "Frends.Community.ConvertExcelFile.ExcelTask.ConvertExcelFile"
     }
   ]
 }
