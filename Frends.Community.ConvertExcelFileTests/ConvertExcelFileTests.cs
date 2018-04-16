@@ -1,7 +1,6 @@
 ﻿using Frends.Community.ConvertExcelFile;
 using NUnit.Framework;
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 

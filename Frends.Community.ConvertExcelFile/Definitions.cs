@@ -1,13 +1,8 @@
-﻿using Frends.Tasks.Attributes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.IO;
-using System.Text;
 using System.Threading;
-using System.Xml;
 
 #pragma warning disable 1591
 
@@ -19,7 +14,7 @@ namespace Frends.Community.ConvertExcelFile
         /// Path to the Excel file
         /// </summary>
         [DefaultValue(@"C:\tmp\ExcelFile.xlsx")]
-        [DefaultDisplayType(DisplayType.Text)]
+        [DisplayFormat(DataFormatString = "Text")]
         public string Path { get; set; }
     }
     
@@ -35,7 +30,7 @@ namespace Frends.Community.ConvertExcelFile
         /// Csv separator
         /// </summary>
         [DefaultValue(@";")]
-        [DefaultDisplayType(DisplayType.Text)]
+        [DisplayFormat(DataFormatString = "Text")]
         public string CsvSeparator { get; set; }
 
         /// <summary>
