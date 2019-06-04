@@ -22,7 +22,6 @@ namespace Frends.Community.ConvertExcelFile
                 {
                     using (IExcelDataReader excelReader = ExcelReaderFactory.CreateReader(stream))
                     {
-                        var input_filetype = Path.GetExtension(input.Path).ToLower();
                         DataSet result = excelReader.AsDataSet();
                         return new Result(true, result, options, Path.GetFileName(input.Path), cancellationToken);
                     }
