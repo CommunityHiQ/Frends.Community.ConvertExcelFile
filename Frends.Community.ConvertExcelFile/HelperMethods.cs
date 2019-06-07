@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Frends.Community.ConvertExcelFile
@@ -122,7 +119,7 @@ namespace Frends.Community.ConvertExcelFile
         /// <returns>String containing the converted Excel</returns>
         internal static string ConvertToCSV(DataSet result, Options options, CancellationToken cancellationToken)
         {
-            string resultData = null;
+            var resultData = new StringBuilder();
 
             foreach (DataTable table in result.Tables)
             {
@@ -136,17 +133,15 @@ namespace Frends.Community.ConvertExcelFile
                         for (int j = 0; j < table.Columns.Count; j++)
                         {
                             cancellationToken.ThrowIfCancellationRequested();
-                            resultData += table.Rows[i].ItemArray[j];
-                            if (j < table.Columns.Count - 1)
-                            {
-                                resultData += options.CsvSeparator;
-                            }
+                            resultData.Append(table.Rows[i].ItemArray[j] + options.CsvSeparator);
                         }
-                        resultData += "\n";
+                        // remove last CsvSeparator
+                        resultData.Length--;
+                        resultData.Append(Environment.NewLine);
                     }
                 }
             }
-            return resultData;
+            return resultData.ToString();
         }
 
         /// <summary>
