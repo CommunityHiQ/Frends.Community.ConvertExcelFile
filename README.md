@@ -78,3 +78,10 @@ Reads Excel file and converts it to XML, CSV and JSON according to the task inpu
 |ToJToken() | JToken |  Converts result to Json||
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details
+
+
+# Change Log
+
+| Version             | Changes                 |
+| ---------------------| ---------------------|
+| 1.6.0 | Input filename is now case sensitive. Updated libraries. |
