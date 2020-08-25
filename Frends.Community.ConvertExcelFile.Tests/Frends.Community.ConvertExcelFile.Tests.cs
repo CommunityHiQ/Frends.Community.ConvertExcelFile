@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using static Frends.Community.ConvertExcelFile.ConvertExcelFile;
 
 namespace Frends.Community.ConvertExcelFileTests
 {
@@ -19,7 +20,7 @@ namespace Frends.Community.ConvertExcelFileTests
         [SetUp]
         public void Setup()
         {
-            _input.Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData\ExcelTests\In\");
+            _input.Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TestData\ExcelTests\In\");
             _options.CsvSeparator = ",";
             _options.ReadOnlyWorkSheetWithName = "";
 
