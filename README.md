@@ -93,4 +93,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | Version             | Changes                 |
 | ---------------------| ---------------------|
 | 1.6.0 | Input filename is now case sensitive. Updated libraries. |
-| 1.6.1 | Input filename is now case sensitive. Updated libraries. |
+| 1.6.2 | Converted to support .Net Framework 4.7.1 and .Net Standard 2.0. |

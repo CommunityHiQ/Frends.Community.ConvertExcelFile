@@ -14,8 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Frends.Community.ConvertExcelFile
 {
-    public static class ConvertExcelFile
-    {
+
         public class ExcelClass
         {
             /// <summary>
@@ -45,7 +44,7 @@ namespace Frends.Community.ConvertExcelFile
                 }
             }
         }
-    }
+    
 
     class HelperMethods
     {
