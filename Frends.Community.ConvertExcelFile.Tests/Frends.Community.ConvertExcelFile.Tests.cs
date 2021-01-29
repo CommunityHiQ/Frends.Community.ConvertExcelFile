@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using static Frends.Community.ConvertExcelFile.ConvertExcelFile;
+
 
 namespace Frends.Community.ConvertExcelFileTests
 {
