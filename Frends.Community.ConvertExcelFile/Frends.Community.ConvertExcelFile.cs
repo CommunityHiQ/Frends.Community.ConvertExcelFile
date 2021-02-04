@@ -25,7 +25,9 @@ namespace Frends.Community.ConvertExcelFile
             {
                 try
                 {
-                    using (FileStream stream = new FileStream(input.Path, FileMode.Open))
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+                using (FileStream stream = new FileStream(input.Path, FileMode.Open))
                     {
                         using (IExcelDataReader excelReader = ExcelReaderFactory.CreateReader(stream))
                         {
