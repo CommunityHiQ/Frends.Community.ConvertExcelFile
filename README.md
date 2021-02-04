@@ -57,25 +57,21 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # Building
 
-Ensure that you have https://www.myget.org/F/frends/api/v3/index.json added to your nuget feeds
+Clone a copy of the repository
 
-Clone a copy of the repo
-
-git clone https://github.com/CommunityHiQ/Frends.Community.ConvertExcelFile.git
-
-Restore dependencies
-
-nuget restore Frends.Community.ConvertExcelFile
+`git clone https://github.com/CommunityHiQ/Frends.Community.ConvertExcelFile.git`
 
 Rebuild the project
 
-Run Tests with nunit3. Tests can be found under
+`dotnet build`
 
-Frends.Community.ConvertExcelFileTests\bin\Release\Frends.Community.ConvertExcelFileTests.dll
+Run tests
 
-Create a nuget package
+`dotnet test`
 
-`nuget pack nuspec/Frends.Community.ConvertExcelFile.nuspec`
+Create a NuGet package
+
+`dotnet pack --configuration Release`
 
 # Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -93,4 +89,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | Version             | Changes                 |
 | ---------------------| ---------------------|
 | 1.6.0 | Input filename is now case sensitive. Updated libraries. |
-| 1.6.2 | Converted to support .Net Framework 4.7.1 and .Net Standard 2.0. |
+| 1.7.0 | Converted to support .Net Framework 4.7.1 and .Net Standard 2.0. |
