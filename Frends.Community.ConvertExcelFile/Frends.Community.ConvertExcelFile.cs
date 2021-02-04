@@ -1,14 +1,53 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using ExcelDataReader;
+using Microsoft.CSharp; // You can remove this if you don't need dynamic type in .Net Standard tasks
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+#pragma warning disable 1591
 
 namespace Frends.Community.ConvertExcelFile
 {
+
+        public class ExcelClass
+        {
+            /// <summary>
+            /// A Frends-task for converting Excel-files to DataSet, XML, CSV and JSON
+            /// </summary>
+            /// <returns>Object {DataSet ResultData, bool Success, string Message, JToken ToJson(), string ToXml(), string ToCsv()}</returns>
+            public static Result ConvertExcelFile(Input input, Options options, CancellationToken cancellationToken)
+            {
+                try
+                {
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+                using (FileStream stream = new FileStream(input.Path, FileMode.Open))
+                    {
+                        using (IExcelDataReader excelReader = ExcelReaderFactory.CreateReader(stream))
+                        {
+                            DataSet result = excelReader.AsDataSet();
+                            return new Result(true, result, options, Path.GetFileName(input.Path), cancellationToken);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (options.ThrowErrorOnFailure)
+                    {
+                        throw new Exception(ex.ToString());
+                    }
+                    return new Result(false, ex.ToString());
+                }
+            }
+        }
+    
+
     class HelperMethods
     {
         /// <summary>
@@ -21,7 +60,7 @@ namespace Frends.Community.ConvertExcelFile
         /// <returns>a JToken containing the converted Excel</returns>
         internal static object WriteJToken(DataSet result, Options options, string filename, CancellationToken cancellationToken)
         {
-           var doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.LoadXml(ConvertToXml(result, options, filename, cancellationToken));
             var jsonString = JsonConvert.SerializeXmlNode(doc);
             return JToken.Parse(jsonString);
