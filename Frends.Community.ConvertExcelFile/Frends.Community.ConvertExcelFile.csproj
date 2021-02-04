@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net471</TargetFrameworks>
+		<TargetFramework>net471</TargetFramework>
 		<authors>HiQ Finland</authors>
 		<copyright>HiQ Finland</copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -10,7 +10,7 @@
 		<IncludeSource>true</IncludeSource>
 		<PackageTags>Frends</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Version>1.6.3</Version>
+		<Version>1.6.4</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
