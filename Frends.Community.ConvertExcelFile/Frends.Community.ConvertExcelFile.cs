@@ -9,6 +9,8 @@ using ExcelDataReader;
 using Microsoft.CSharp; // You can remove this if you don't need dynamic type in .Net Standard tasks
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+
 
 #pragma warning disable 1591
 
@@ -55,15 +57,147 @@ namespace Frends.Community.ConvertExcelFile
         /// </summary>
         /// <param name="result">DataSet-object</param>
         /// <param name="options">Input configurations</param>
-        /// <param name="filename">Excel file name to be read</param>
+        /// <param name="file_name">Excel file name to be read</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>a JToken containing the converted Excel</returns>
-        internal static object WriteJToken(DataSet result, Options options, string filename, CancellationToken cancellationToken)
+        //internal static object WriteJToken(DataSet result, Options options, string file_name, CancellationToken cancellationToken)
+        //{
+        //    //var doc = new XmlDocument();
+        //    //doc.LoadXml(ConvertToXml(result, options, file_name, cancellationToken));
+        //    //var jsonString = JsonConvert.SerializeXmlNode(doc);
+        //    //return JToken.Parse(jsonString);
+            
+
+        //}
+        /// <summary>
+        /// Converts DataSet-object to JSON
+        /// </summary>
+        /// <param name="result">DataSet-object</param>
+        /// <param name="options">Input configurations</param>
+        /// <param name="file_name">Excel file name to be read</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>a JToken containing the converted Excel</returns>
+        internal static object WriteJToken(DataSet result, Options options, string file_name, CancellationToken cancellationToken)
         {
-            var doc = new XmlDocument();
-            doc.LoadXml(ConvertToXml(result, options, filename, cancellationToken));
-            var jsonString = JsonConvert.SerializeXmlNode(doc);
-            return JToken.Parse(jsonString);
+            //var doc = new XmlDocument();
+            //doc.LoadXml(ConvertToXml(result, options, file_name, cancellationToken));
+            //var jsonString = JsonConvert.SerializeXmlNode(doc);
+            //return JToken.Parse(jsonString);
+
+            StringBuilder json = new StringBuilder();
+            json.Append("{");
+            json.Append($"\"workbook\": ");
+            json.Append("{");
+            json.Append($"\"workbook_name\": \"{file_name}\",");
+            if (options.ReadOnlyWorkSheetWithName.Length == 0)
+            {
+                json.Append("\"worksheets\": ");
+                json.Append("[");
+            } 
+            else
+            {
+                json.Append("\"worksheet\" : ");
+            }
+            
+            foreach (DataTable dt in result.Tables)
+            {
+
+                if (options.ReadOnlyWorkSheetWithName.Contains(dt.TableName) || options.ReadOnlyWorkSheetWithName.Length == 0)
+                {
+                    StringBuilder jsonString = new StringBuilder();
+                    json.Append("{");
+                    json.Append($"\"name\": \"{dt.TableName}\",");
+                    json.Append("\"rows\": ");
+
+                    // building json from datatable
+                    if (dt.Rows.Count > 0)
+                    {
+                        json.Append("[");
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            object content = WriteRowToJson(dt, i).ToString();
+                            if (!content.ToString().Equals("empty"))
+                            {
+                                json.Append(WriteRowToJson(dt, i).ToString());
+                                if (i < dt.Rows.Count - 1)
+                                {
+                                    json.Append("},");
+                                }
+                                else if (i == dt.Rows.Count - 1)
+                                {
+                                    json.Append("}");
+                                }
+                            }
+                        }
+
+                        json.Append("]");
+                    }
+                    if (result.Tables.IndexOf(dt) != result.Tables.Count - 1)
+                    {
+                        json.Append("},");
+                    }
+                    else
+                    {
+                        json.Append("}");
+                    }
+                }
+                
+            }
+            if (options.ReadOnlyWorkSheetWithName.Length == 0)
+            {
+                json.Append("]");
+            }
+            json.Append("}");
+            json.Append("}");
+
+            return JObject.Parse(json.ToString());
+
+        }
+
+        // helper function to write database's row to json
+        internal static object WriteRowToJson(DataTable dt, int i)
+        {
+            StringBuilder rowJson = new StringBuilder();
+            rowJson.Append("{");
+            rowJson.Append($"\"row_header\": \"{i + 1}\",");
+            rowJson.Append("\"columns\": ");
+
+            object content = WriteColumnToJson(dt, i).ToString();
+            if (content.Equals("[]"))
+            {
+                return "empty";
+            }
+
+            rowJson.Append(content);
+
+            return rowJson;
+        }
+        // helper function to write datatable's column to json
+        internal static object WriteColumnToJson(DataTable dt, int i)
+        {
+            StringBuilder columnJson = new StringBuilder();
+            columnJson.Append("[");
+            for (int j = 0; j < dt.Columns.Count; j++)
+            {
+                string content = dt.Rows[i].ItemArray[j].ToString();
+                if (String.IsNullOrWhiteSpace(content) == false)
+                {
+                    columnJson.Append("{");
+                    columnJson.Append($"\"{ColumnIndexToColumnLetter(j + 1)}\": \"{dt.Rows[i][j].ToString()}\"");
+                    if (j != dt.Columns.Count - 1)
+                    {
+                        columnJson.Append("},");
+                    }
+                    else
+                    {
+                        columnJson.Append("}");
+                    }
+                }
+
+            }
+            columnJson.Append("]");
+
+            return columnJson;
         }
         /// <summary>
         /// Converts DataSet-object to XML.

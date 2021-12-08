@@ -92,7 +92,7 @@ namespace Frends.Community.ConvertExcelFileTests
             // Test converting all worksheets of xlsx file to JSON
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput1.xlsx");
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            string expectedResult = @"{""workbook"":{""@workbook_name"":""ExcelTestInput1.xlsx"",""worksheet"":[{""@worksheet_name"":""Sheet1"",""row"":[{""@row_header"":""1"",""column"":[{""@column_header"":""A"",""#text"":""Foo""},{""@column_header"":""B"",""#text"":""Bar""},{""@column_header"":""C"",""#text"":""Kanji働""},{""@column_header"":""D"",""#text"":""Summa""}]},{""@row_header"":""2"",""column"":[{""@column_header"":""A"",""#text"":""1""},{""@column_header"":""B"",""#text"":""2""},{""@column_header"":""C"",""#text"":""3""},{""@column_header"":""D"",""#text"":""6""}]}]},{""@worksheet_name"":""OmituinenNimi"",""row"":[{""@row_header"":""1"",""column"":[{""@column_header"":""A"",""#text"":""Kissakuva""},{""@column_header"":""B"",""#text"":""1""},{""@column_header"":""C"",""#text"":""2""},{""@column_header"":""D"",""#text"":""3""}]},{""@row_header"":""15"",""column"":{""@column_header"":""A"",""#text"":""Foo""}},{""@row_header"":""16"",""column"":{""@column_header"":""B"",""#text"":""Bar""}}]}]}}";
+            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput1.xlsx"",""worksheets"":[{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]},{""name"":""OmituinenNimi"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Kissa kuva""},{""B"":""1""},{""C"":""2""},{""D"":""3""}]},{""row_header"":""15"",""columns"":[{""A"":""Foo""}]},{""row_header"":""16"",""columns"":[{""B"":""Bar""}]}]}]}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
@@ -102,7 +102,7 @@ namespace Frends.Community.ConvertExcelFileTests
             // Test converting all worksheets of xls file to JSON
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput2.xls");
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            string expectedResult = @"{""workbook"":{""@workbook_name"":""ExcelTestInput2.xls"",""worksheet"":[{""@worksheet_name"":""Sheet1"",""row"":[{""@row_header"":""1"",""column"":[{""@column_header"":""A"",""#text"":""Foo""},{""@column_header"":""B"",""#text"":""Bar""},{""@column_header"":""C"",""#text"":""Kanji働""},{""@column_header"":""D"",""#text"":""Summa""}]},{""@row_header"":""2"",""column"":[{""@column_header"":""A"",""#text"":""1""},{""@column_header"":""B"",""#text"":""2""},{""@column_header"":""C"",""#text"":""3""},{""@column_header"":""D"",""#text"":""6""}]}]},{""@worksheet_name"":""OmituinenNimi"",""row"":[{""@row_header"":""1"",""column"":[{""@column_header"":""A"",""#text"":""Kissakuva""},{""@column_header"":""B"",""#text"":""1""},{""@column_header"":""C"",""#text"":""2""},{""@column_header"":""D"",""#text"":""3""}]},{""@row_header"":""15"",""column"":{""@column_header"":""A"",""#text"":""Foo""}},{""@row_header"":""16"",""column"":{""@column_header"":""B"",""#text"":""Bar""}}]}]}}";
+            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput2.xls"",""worksheets"":[{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]},{""name"":""OmituinenNimi"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Kissa kuva""},{""B"":""1""},{""C"":""2""},{""D"":""3""}]},{""row_header"":""15"",""columns"":[{""A"":""Foo""}]},{""row_header"":""16"",""columns"":[{""B"":""Bar""}]}]}]}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
         [Test]
@@ -112,7 +112,7 @@ namespace Frends.Community.ConvertExcelFileTests
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput1.xlsx");
             _options.ReadOnlyWorkSheetWithName = "Sheet1";
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            var expectedResult = @"{""workbook"":{""@workbook_name"":""ExcelTestInput1.xlsx"",""worksheet"":{""@worksheet_name"":""Sheet1"",""row"":[{""@row_header"":""1"",""column"":[{""@column_header"":""A"",""#text"":""Foo""},{""@column_header"":""B"",""#text"":""Bar""},{""@column_header"":""C"",""#text"":""Kanji働""},{""@column_header"":""D"",""#text"":""Summa""}]},{""@row_header"":""2"",""column"":[{""@column_header"":""A"",""#text"":""1""},{""@column_header"":""B"",""#text"":""2""},{""@column_header"":""C"",""#text"":""3""},{""@column_header"":""D"",""#text"":""6""}]}]}}}";
+            var expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput1.xlsx"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]}}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
@@ -123,7 +123,7 @@ namespace Frends.Community.ConvertExcelFileTests
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput2.xls");
             _options.ReadOnlyWorkSheetWithName = "Sheet1";
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            string expectedResult = @"{""workbook"":{""@workbook_name"":""ExcelTestInput2.xls"",""worksheet"":{""@worksheet_name"":""Sheet1"",""row"":[{""@row_header"":""1"",""column"":[{""@column_header"":""A"",""#text"":""Foo""},{""@column_header"":""B"",""#text"":""Bar""},{""@column_header"":""C"",""#text"":""Kanji働""},{""@column_header"":""D"",""#text"":""Summa""}]},{""@row_header"":""2"",""column"":[{""@column_header"":""A"",""#text"":""1""},{""@column_header"":""B"",""#text"":""2""},{""@column_header"":""C"",""#text"":""3""},{""@column_header"":""D"",""#text"":""6""}]}]}}}";
+            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput2.xls"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]}}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
