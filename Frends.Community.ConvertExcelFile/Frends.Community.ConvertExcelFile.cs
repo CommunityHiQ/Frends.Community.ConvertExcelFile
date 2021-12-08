@@ -58,32 +58,21 @@ namespace Frends.Community.ConvertExcelFile
         /// <param name="result">DataSet-object</param>
         /// <param name="options">Input configurations</param>
         /// <param name="file_name">Excel file name to be read</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>a JToken containing the converted Excel</returns>
-        //internal static object WriteJToken(DataSet result, Options options, string file_name, CancellationToken cancellationToken)
-        //{
-        //    //var doc = new XmlDocument();
-        //    //doc.LoadXml(ConvertToXml(result, options, file_name, cancellationToken));
-        //    //var jsonString = JsonConvert.SerializeXmlNode(doc);
-        //    //return JToken.Parse(jsonString);
-            
-
-        //}
+        /// <returns>a JObject containing the converted Excel</returns>
+        internal static object WriteJToken(DataSet result, Options options, string file_name)
+        {
+            object json = ConvertToJson(result, options, file_name);
+            return JObject.Parse(json.ToString());
+        }
         /// <summary>
         /// Converts DataSet-object to JSON
         /// </summary>
         /// <param name="result">DataSet-object</param>
         /// <param name="options">Input configurations</param>
         /// <param name="file_name">Excel file name to be read</param>
-        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>a JToken containing the converted Excel</returns>
-        internal static object WriteJToken(DataSet result, Options options, string file_name, CancellationToken cancellationToken)
+        internal static object ConvertToJson(DataSet result, Options options, string file_name)
         {
-            //var doc = new XmlDocument();
-            //doc.LoadXml(ConvertToXml(result, options, file_name, cancellationToken));
-            //var jsonString = JsonConvert.SerializeXmlNode(doc);
-            //return JToken.Parse(jsonString);
-
             StringBuilder json = new StringBuilder();
             json.Append("{");
             json.Append($"\"workbook\": ");
@@ -150,11 +139,15 @@ namespace Frends.Community.ConvertExcelFile
             json.Append("}");
             json.Append("}");
 
-            return JObject.Parse(json.ToString());
+            return json;
 
         }
-
-        // helper function to write database's row to json
+        /// <summary>
+        /// Converts DataRow-object to JSON as a StringBuilder object
+        /// </summary>
+        /// <param name="dt">DataTable-object</param>
+        /// <param name="i">Iteration index</param>
+        /// <returns>a StringBuilder object containing the converted Excel from row</returns>
         internal static object WriteRowToJson(DataTable dt, int i)
         {
             StringBuilder rowJson = new StringBuilder();
@@ -172,7 +165,12 @@ namespace Frends.Community.ConvertExcelFile
 
             return rowJson;
         }
-        // helper function to write datatable's column to json
+        /// <summary>
+        /// Converts DataColumn-object to JSON as StringBuilder object
+        /// </summary>
+        /// <param name="dt">DataTable-object</param>
+        /// <param name="i">Iteration index</param>
+        /// <returns>a StringBuilder object containing the converted Excel from column</returns>
         internal static object WriteColumnToJson(DataTable dt, int i)
         {
             StringBuilder columnJson = new StringBuilder();

@@ -88,7 +88,7 @@ namespace Frends.Community.ConvertExcelFile
             ResultData = result;
 
             _xml = new Lazy<string>(() => ResultData != null ? HelperMethods.ConvertToXml(ResultData,  options, filename, cancellationToken) : null);
-            _json = new Lazy<object>(() => ResultData != null ? HelperMethods.WriteJToken(ResultData, options, filename,cancellationToken) : null);
+            _json = new Lazy<object>(() => ResultData != null ? HelperMethods.WriteJToken(ResultData, options, filename) : null);
             _csv = new Lazy<string>(() => ResultData != null ? HelperMethods.ConvertToCSV(ResultData, options, cancellationToken) : null);
         }
         //Constructor for failed conversion
