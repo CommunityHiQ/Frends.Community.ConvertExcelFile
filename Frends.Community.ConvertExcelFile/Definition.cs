@@ -66,7 +66,7 @@ namespace Frends.Community.ConvertExcelFile
         /// <summary>
         /// Excel-conversion to JSON
         /// </summary>
-        /// <returns>JToken</returns>
+        /// <returns>JObject</returns>
         public object ToJson(){ return _json.Value;}
         /// <summary>
         /// Excel-conversion to CSV

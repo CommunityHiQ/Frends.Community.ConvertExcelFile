@@ -104,10 +104,10 @@ namespace Frends.Community.ConvertExcelFile
                         json.Append("[");
                         for (int i = 0; i < dt.Rows.Count; i++)
                         {
-                            object content = WriteRowToJson(dt, i).ToString();
+                            object content = WriteRowToJson(dt, i, options).ToString();
                             if (!content.ToString().Equals("empty"))
                             {
-                                json.Append(WriteRowToJson(dt, i).ToString());
+                                json.Append(WriteRowToJson(dt, i, options).ToString());
                                 if (i < dt.Rows.Count - 1)
                                 {
                                     json.Append("},");
@@ -147,15 +147,17 @@ namespace Frends.Community.ConvertExcelFile
         /// </summary>
         /// <param name="dt">DataTable-object</param>
         /// <param name="i">Iteration index</param>
+        /// <param name="options">Input configurations</param>
         /// <returns>a StringBuilder object containing the converted Excel from row</returns>
-        internal static object WriteRowToJson(DataTable dt, int i)
+        internal static object WriteRowToJson(DataTable dt, int i, Options options)
         {
             StringBuilder rowJson = new StringBuilder();
             rowJson.Append("{");
-            rowJson.Append($"\"row_header\": \"{i + 1}\",");
-            rowJson.Append("\"columns\": ");
+            // rowJson.Append($"\"row_header\": \"{i + 1}\",");
+            // rowJson.Append("\"columns\": ");
+            rowJson.Append($"\"{i + 1}\":");
 
-            object content = WriteColumnToJson(dt, i).ToString();
+            object content = WriteColumnToJson(dt, i, options).ToString();
             if (content.Equals("[]"))
             {
                 return "empty";
@@ -170,8 +172,9 @@ namespace Frends.Community.ConvertExcelFile
         /// </summary>
         /// <param name="dt">DataTable-object</param>
         /// <param name="i">Iteration index</param>
+        /// <param name="options">Input configurations</param>
         /// <returns>a StringBuilder object containing the converted Excel from column</returns>
-        internal static object WriteColumnToJson(DataTable dt, int i)
+        internal static object WriteColumnToJson(DataTable dt, int i, Options options)
         {
             StringBuilder columnJson = new StringBuilder();
             columnJson.Append("[");
@@ -181,15 +184,31 @@ namespace Frends.Community.ConvertExcelFile
                 if (String.IsNullOrWhiteSpace(content) == false)
                 {
                     columnJson.Append("{");
-                    columnJson.Append($"\"{ColumnIndexToColumnLetter(j + 1)}\": \"{dt.Rows[i][j].ToString()}\"");
-                    if (j != dt.Columns.Count - 1)
+                    if (options.UseNumbersAsColumnHeaders)
                     {
-                        columnJson.Append("},");
+                        columnJson.Append($"\"{(j + 1).ToString()}\": \"{dt.Rows[i][j].ToString()}\"");
+                        if (j != dt.Columns.Count - 1)
+                        {
+                            columnJson.Append("},");
+                        }
+                        else
+                        {
+                            columnJson.Append("}");
+                        }
                     }
                     else
                     {
-                        columnJson.Append("}");
+                        columnJson.Append($"\"{ColumnIndexToColumnLetter(j + 1)}\": \"{dt.Rows[i][j].ToString()}\"");
+                        if (j != dt.Columns.Count - 1)
+                        {
+                            columnJson.Append("},");
+                        }
+                        else
+                        {
+                            columnJson.Append("}");
+                        }
                     }
+                        
                 }
 
             }
