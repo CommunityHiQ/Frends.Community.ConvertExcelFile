@@ -92,7 +92,7 @@ namespace Frends.Community.ConvertExcelFileTests
             // Test converting all worksheets of xlsx file to JSON
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput1.xlsx");
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput1.xlsx"",""worksheets"":[{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]},{""name"":""OmituinenNimi"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Kissa kuva""},{""B"":""1""},{""C"":""2""},{""D"":""3""}]},{""row_header"":""15"",""columns"":[{""A"":""Foo""}]},{""row_header"":""16"",""columns"":[{""B"":""Bar""}]}]}]}}";
+            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput1.xlsx"",""worksheets"":[{""name"":""Sheet1"",""rows"":[{""1"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""2"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]},{""name"":""OmituinenNimi"",""rows"":[{""1"":[{""A"":""Kissa kuva""},{""B"":""1""},{""C"":""2""},{""D"":""3""}]},{""15"":[{""A"":""Foo""}]},{""16"":[{""B"":""Bar""}]}]}]}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
@@ -102,7 +102,7 @@ namespace Frends.Community.ConvertExcelFileTests
             // Test converting all worksheets of xls file to JSON
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput2.xls");
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput2.xls"",""worksheets"":[{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]},{""name"":""OmituinenNimi"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Kissa kuva""},{""B"":""1""},{""C"":""2""},{""D"":""3""}]},{""row_header"":""15"",""columns"":[{""A"":""Foo""}]},{""row_header"":""16"",""columns"":[{""B"":""Bar""}]}]}]}}";
+            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput2.xls"",""worksheets"":[{""name"":""Sheet1"",""rows"":[{""1"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""2"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]},{""name"":""OmituinenNimi"",""rows"":[{""1"":[{""A"":""Kissa kuva""},{""B"":""1""},{""C"":""2""},{""D"":""3""}]},{""15"":[{""A"":""Foo""}]},{""16"":[{""B"":""Bar""}]}]}]}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
         [Test]
@@ -112,7 +112,7 @@ namespace Frends.Community.ConvertExcelFileTests
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput1.xlsx");
             _options.ReadOnlyWorkSheetWithName = "Sheet1";
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            var expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput1.xlsx"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]}}}";
+            var expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput1.xlsx"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""1"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""2"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]}}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
@@ -123,7 +123,7 @@ namespace Frends.Community.ConvertExcelFileTests
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput2.xls");
             _options.ReadOnlyWorkSheetWithName = "Sheet1";
             var result = ExcelClass.ConvertExcelFile(_input, _options, new System.Threading.CancellationToken());
-            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput2.xls"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""row_header"":""1"",""columns"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""row_header"":""2"",""columns"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]}}}";
+            string expectedResult = @"{""workbook"":{""workbook_name"":""ExcelTestInput2.xls"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""1"":[{""A"":""Foo""},{""B"":""Bar""},{""C"":""Kanji 働""},{""D"":""Summa""}]},{""2"":[{""A"":""1""},{""B"":""2""},{""C"":""3""},{""D"":""6""}]}]}}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
