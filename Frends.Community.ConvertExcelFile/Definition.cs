@@ -44,8 +44,34 @@ namespace Frends.Community.ConvertExcelFile
         /// </summary>
         [DefaultValue("true")]
         public bool ThrowErrorOnFailure { get; set; }
+
+        /// <summary>
+        /// Date format selection, default value DMY
+        /// </summary>
+        [DisplayName("Date Format")]
+        [DisplayFormat(DataFormatString = "Text")]
+        public DateFormats DateFormat {  get; set; }
     }
-    
+
+    #region Enumerations
+    public enum DateFormats
+    {
+        /// <summary>
+        /// day/month/year
+        /// </summary>
+        DMY,
+        /// <summary>
+        /// month/day/year
+        /// </summary>
+        MDY,
+        /// <summary>
+        /// year/month/day
+        /// </summary>
+        YMD
+    }
+
+    #endregion
+
     public class Result
     {
         /// <summary>

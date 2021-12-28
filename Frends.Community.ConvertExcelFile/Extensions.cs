@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -135,33 +136,32 @@ namespace Frends.Community.ConvertExcelFile
             columnJson.Append("[");
             for (var j = 0; j < dt.Columns.Count; j++)
             {
-                var content = dt.Rows[i].ItemArray[j].ToString();
-                if (string.IsNullOrWhiteSpace(content) == false)
+                var content = dt.Rows[i].ItemArray[j];
+                var type = content.GetType();
+                if (string.IsNullOrWhiteSpace(content.ToString()) == false)
                 {
+                    if (content.GetType().Name == "DateTime")
+                    {
+                        content = ConvertDateTimes((DateTime)content, options);
+                    }
+                    content = content.ToString();
                     columnJson.Append("{");
                     if (options.UseNumbersAsColumnHeaders)
                     {
-                        columnJson.Append($"\"{j + 1}\": \"{dt.Rows[i][j]}\"");
-                        if (j != dt.Columns.Count - 1)
-                        {
-                            columnJson.Append("},");
-                        }
-                        else
-                        {
-                            columnJson.Append("}");
-                        }
+                        columnJson.Append($"\"{j + 1}\":");
                     }
                     else
                     {
-                        columnJson.Append($"\"{ColumnIndexToColumnLetter(j + 1)}\": \"{dt.Rows[i][j]}\"");
-                        if (j != dt.Columns.Count - 1)
-                        {
-                            columnJson.Append("},");
-                        }
-                        else
-                        {
-                            columnJson.Append("}");
-                        }
+                        columnJson.Append($"\"{ColumnIndexToColumnLetter(j + 1)}\":");
+                    }
+                    columnJson.Append($"\"{content}\"");
+                    if (j != dt.Columns.Count - 1)
+                    {
+                        columnJson.Append("},");
+                    }
+                    else
+                    {
+                        columnJson.Append("}");
                     }
 
                 }
@@ -303,6 +303,32 @@ namespace Frends.Community.ConvertExcelFile
                 div = ((div - mod) / 26);
             }
             return colLetter;
+        }
+
+        /// <summary>
+        /// a Helper method 
+        /// Converts DateTime object to the DateFormat given as options
+        /// Return dd.MM.yyyy as default
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="options"></param>
+        /// <returns>string containing correct date format</returns>
+        public static string ConvertDateTimes(DateTime date, Options options)
+        {
+            // modify the date using date format var in options
+
+            switch (options.DateFormat)
+            {
+                case DateFormats.DMY:
+                    return date.ToString(new CultureInfo("fi-FI"));
+                case DateFormats.MDY:
+                    return date.ToString(new CultureInfo("en-US"));
+                case DateFormats.YMD:
+                    return date.ToString(new CultureInfo("ja-JP"));
+                default:
+                    return date.ToString(new CultureInfo("fi-FI"));
+
+            }
         }
     }
 }
