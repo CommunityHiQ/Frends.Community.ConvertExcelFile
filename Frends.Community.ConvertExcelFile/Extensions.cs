@@ -308,7 +308,7 @@ namespace Frends.Community.ConvertExcelFile
         /// <summary>
         /// a Helper method 
         /// Converts DateTime object to the DateFormat given as options
-        /// Return dd.MM.yyyy as default
+        /// Return agent's date format in default
         /// </summary>
         /// <param name="date"></param>
         /// <param name="options"></param>
@@ -316,19 +316,40 @@ namespace Frends.Community.ConvertExcelFile
         public static string ConvertDateTimes(DateTime date, Options options)
         {
             // modify the date using date format var in options
-
-            switch (options.DateFormat)
+            
+            if (options.ShortDatePattern) 
             {
-                case DateFormats.DMY:
-                    return date.ToString(new CultureInfo("fi-FI"));
-                case DateFormats.MDY:
-                    return date.ToString(new CultureInfo("en-US"));
-                case DateFormats.YMD:
-                    return date.ToString(new CultureInfo("ja-JP"));
-                default:
-                    return date.ToString(new CultureInfo("fi-FI"));
-
+                switch (options.DateFormat)
+                {
+                    case DateFormats.DDMMYYYY:
+                        return date.ToString(new CultureInfo("en-FI").DateTimeFormat.ShortDatePattern);
+                    case DateFormats.MMDDYYYY:
+                        return date.ToString(new CultureInfo("en-US").DateTimeFormat.ShortDatePattern);
+                    case DateFormats.YYYYMMDD:
+                        return date.ToString(new CultureInfo("ja-JP").DateTimeFormat.ShortDatePattern);
+                    case DateFormats.DEFAULT:
+                        return date.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+                    default:
+                        return date.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+                }
             }
+            else
+            {
+                switch (options.DateFormat)
+                {
+                    case DateFormats.DDMMYYYY:
+                        return date.ToString(new CultureInfo("en-FI"));
+                    case DateFormats.MMDDYYYY:
+                        return date.ToString(new CultureInfo("en-US"));
+                    case DateFormats.YYYYMMDD:
+                        return date.ToString(new CultureInfo("ja-JP"));
+                    case DateFormats.DEFAULT:
+                        return date.ToString(CultureInfo.CurrentCulture.DateTimeFormat);
+                    default:
+                        return date.ToString(CultureInfo.CurrentCulture.DateTimeFormat);
+                }
+            }
+            
         }
     }
 }
