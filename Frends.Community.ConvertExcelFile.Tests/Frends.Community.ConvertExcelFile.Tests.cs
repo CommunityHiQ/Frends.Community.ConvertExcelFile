@@ -48,6 +48,20 @@ namespace Frends.Community.ConvertExcelFileTests
         }
 
         [Test]
+        public void TestConvertXlsxWithDatesToCSV()
+        {
+
+            // Test converting all worksheets of xlsx file to csv.
+            _input.Path = Path.Combine(_input.Path, "TestDateFormat.xlsx");
+            _options.ReadOnlyWorkSheetWithName = "Sheet2";
+            _options.DateFormat = DateFormats.DDMMYYYY;
+            _options.ShortDatePattern = true;
+            var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
+            var expectedResult = "25/12/2021,25/02/2021,12/05/2020,30/12/2021";
+            Assert.That(Regex.Replace(result.ToCsv(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
+        }
+
+        [Test]
         public void TestConvertXlsxToXML()
         {
             // Test converting all worksheets of xlsx file to xml.
@@ -64,6 +78,32 @@ namespace Frends.Community.ConvertExcelFileTests
             _input.Path = Path.Combine(_input.Path, "ExcelTestInput2.xls");
             var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
             var expectedResult = @"<workbookworkbook_name=""ExcelTestInput2.xls""><worksheetworksheet_name=""Sheet1""><rowrow_header=""1""><columncolumn_header=""A"">Foo</column><columncolumn_header=""B"">Bar</column><columncolumn_header=""C"">Kanji働</column><columncolumn_header=""D"">Summa</column></row><rowrow_header=""2""><columncolumn_header=""A"">1</column><columncolumn_header=""B"">2</column><columncolumn_header=""C"">3</column><columncolumn_header=""D"">6</column></row></worksheet><worksheetworksheet_name=""OmituinenNimi""><rowrow_header=""1""><columncolumn_header=""A"">Kissakuva</column><columncolumn_header=""B"">1</column><columncolumn_header=""C"">2</column><columncolumn_header=""D"">3</column></row><rowrow_header=""15""><columncolumn_header=""A"">Foo</column></row><rowrow_header=""16""><columncolumn_header=""B"">Bar</column></row></worksheet></workbook>";
+            Assert.That(Regex.Replace(result.ToXml(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
+        }
+
+        [Test]
+        public void TestConvertXlsxWithDatesToXML()
+        {
+            // Test converting all worksheets of xlsx file to xml.
+            _input.Path = Path.Combine(_input.Path, "TestDateFormat.xlsx");
+            _options.ReadOnlyWorkSheetWithName = "Sheet2";
+            _options.DateFormat = DateFormats.YYYYMMDD;
+            _options.ShortDatePattern = false;
+            var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
+            var expectedResult = @"<workbookworkbook_name=""TestDateFormat.xlsx""><worksheetworksheet_name=""Sheet2""><rowrow_header=""1""><columncolumn_header=""A"">2021/12/25 0:00:00</column><columncolumn_header=""B"">2021/02/25 12:45:41</column><columncolumn_header=""C"">2020/05/12 0:00:00</column><columncolumn_header=""D"">2021/12/30 0:00:00</column></row></worksheet></workbook>";
+            Assert.That(Regex.Replace(result.ToXml(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
+        }
+
+        [Test]
+        public void TestConvertXlsxWithDatesAndShortDatePatternToXML()
+        {
+            // Test converting all worksheets of xlsx file to xml.
+            _input.Path = Path.Combine(_input.Path, "TestDateFormat.xlsx");
+            _options.ReadOnlyWorkSheetWithName = "Sheet1";
+            _options.DateFormat = DateFormats.MMDDYYYY;
+            _options.ShortDatePattern = true;
+            var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
+            var expectedResult = @"<workbookworkbook_name=""TestDateFormat.xlsx""><worksheetworksheet_name=""Sheet1""><rowrow_header=""1""><columncolumn_header=""A"">1</column><columncolumn_header=""B"">2</column><columncolumn_header=""C"">3</column><columncolumn_header=""D"">4</column></row><rowrow_header=""2""><columncolumn_header=""A"">12/12/2021</column><columncolumn_header=""B"">2/25/2021</column><columncolumn_header=""C"">5/12/2020</column><columncolumn_header=""D"">12/12/2021</column></row></worksheet></workbook>";
             Assert.That(Regex.Replace(result.ToXml(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
@@ -129,7 +169,7 @@ namespace Frends.Community.ConvertExcelFileTests
         }
 
         [Test]
-        public void TestConvertXlsxOneWorkSheetWithDatesDDMMYYYY()
+        public void TestConvertXlsxOneWorkSheetWithDatesDDMMYYYYToJSON()
         {
             // Test converting worksheet with dates into dd/MM/yyyy format
             _input.Path = Path.Combine(_input.Path, "TestDateFormat.xlsx");
@@ -137,12 +177,12 @@ namespace Frends.Community.ConvertExcelFileTests
             _options.DateFormat = DateFormats.DDMMYYYY;
             _options.ShortDatePattern = false;
             var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
-            var expectedResult = @"{""workbook"":{""workbook_name"":""TestDateFormat.xlsx"",""worksheet"":{""name"":""Sheet2"",""rows"":[{""1"":[{""A"":""25/12/2021 0.00.00""},{""B"":""25/02/2021 12.45.41""}, {""C"":""12/05/2020 0.00.00""},{""D"":""30/12/2021 0.00.00""}]}]}}}";
+            var expectedResult = @"{""workbook"":{""workbook_name"":""TestDateFormat.xlsx"",""worksheet"":{""name"":""Sheet2"",""rows"":[{""1"":[{""A"":""25/12/2021 0:00:00""},{""B"":""25/02/2021 12:45:41""}, {""C"":""12/05/2020 0:00:00""},{""D"":""30/12/2021 0:00:00""}]}]}}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
         [Test]
-        public void TestConvertXlsxOneWorkSheetWithDatesMMDDYYYY()
+        public void TestConvertXlsxOneWorkSheetWithDatesMMDDYYYYToJSON()
         {
             // Test converting worksheet with dates into MM/dd/yyyy format
             _input.Path = Path.Combine(_input.Path, "TestDateFormat.xls");
@@ -150,12 +190,12 @@ namespace Frends.Community.ConvertExcelFileTests
             _options.DateFormat = DateFormats.MMDDYYYY;
             _options.ShortDatePattern = false;
             var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
-            var expectedResult = @"{""workbook"":{""workbook_name"":""TestDateFormat.xls"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""1"":[{""A"":""1""},{""B"":""2""}, {""C"":""3""},{""D"":""4""}]}, {""2"":[{""A"":""12/12/2021 12:00:00AM""},{""B"":""2/25/2021 12:45:41PM""}, {""C"":""5/12/2020 12:00:00AM""},{""D"":""12/12/2021 12:00:00AM""}]}]}}}";
+            var expectedResult = @"{""workbook"":{""workbook_name"":""TestDateFormat.xls"",""worksheet"":{""name"":""Sheet1"",""rows"":[{""1"":[{""A"":""1""},{""B"":""2""}, {""C"":""3""},{""D"":""4""}]}, {""2"":[{""A"":""12/12/2021 12:00:00AM""},{""B"":""02/25/2021 12:45:41PM""}, {""C"":""05/12/2020 12:00:00AM""},{""D"":""12/12/2021 12:00:00AM""}]}]}}}";
             Assert.That(Regex.Replace(result.ToJson().ToString(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 
         [Test]
-        public void TestConvertXlsxOneWorkSheetWithDatesYYYYMDD()
+        public void TestConvertXlsxOneWorkSheetWithDatesYYYYMDDToJSON()
         {
             // Test converting worksheet with dates into MM/dd/yyyy format
             _input.Path = Path.Combine(_input.Path, "TestDateFormat.xlsx");
@@ -168,7 +208,7 @@ namespace Frends.Community.ConvertExcelFileTests
         }
 
         [Test]
-        public void TestConvertXlsxOneWorkSheetWithDatesDDMMYYYYWithShortPattern()
+        public void TestConvertXlsxOneWorkSheetWithDatesDDMMYYYYWithShortPatternToJSON()
         {
             // Test converting worksheet with dates into dd/MM/yyyy format with ShortTimePattern enabled
             _input.Path = Path.Combine(_input.Path, "TestDateFormat.xls");

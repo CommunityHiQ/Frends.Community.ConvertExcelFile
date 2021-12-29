@@ -214,8 +214,8 @@ namespace Frends.Community.ConvertExcelFile
                                 {
                                     cancellationToken.ThrowIfCancellationRequested();
                                     // Write column only if it has some content
-                                    string content = table.Rows[i].ItemArray[j].ToString();
-                                    if (String.IsNullOrWhiteSpace(content) == false)
+                                    var content = table.Rows[i].ItemArray[j];
+                                    if (String.IsNullOrWhiteSpace(content.ToString()) == false)
                                     {
 
                                         if (row_element_is_writed == false)
@@ -234,7 +234,11 @@ namespace Frends.Community.ConvertExcelFile
                                         {
                                             xw.WriteAttributeString("column_header", ColumnIndexToColumnLetter(j + 1));
                                         }
-                                        xw.WriteString(content);
+                                        if (content.GetType().Name == "DateTime")
+                                        {
+                                            content = ConvertDateTimes((DateTime)content, options);
+                                        }
+                                        xw.WriteString(content.ToString());
                                         xw.WriteEndElement();
                                     }
                                 }
@@ -275,7 +279,12 @@ namespace Frends.Community.ConvertExcelFile
                         for (var j = 0; j < table.Columns.Count; j++)
                         {
                             cancellationToken.ThrowIfCancellationRequested();
-                            resultData.Append(table.Rows[i].ItemArray[j] + options.CsvSeparator);
+                            var item = table.Rows[i].ItemArray[j];
+                            if (table.Rows[i].ItemArray[j].GetType().Name == "DateTime")
+                            {
+                                item = ConvertDateTimes((DateTime)item, options);
+                            }
+                            resultData.Append(item + options.CsvSeparator);
                         }
                         // remove last CsvSeparator
                         resultData.Length--;
@@ -338,11 +347,11 @@ namespace Frends.Community.ConvertExcelFile
                 switch (options.DateFormat)
                 {
                     case DateFormats.DDMMYYYY:
-                        return date.ToString(new CultureInfo("en-FI"));
+                        return date.ToString("dd/MM/yyyy H:mm:ss", CultureInfo.InvariantCulture);
                     case DateFormats.MMDDYYYY:
-                        return date.ToString(new CultureInfo("en-US"));
+                        return date.ToString("MM/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
                     case DateFormats.YYYYMMDD:
-                        return date.ToString(new CultureInfo("ja-JP"));
+                        return date.ToString("yyyy/MM/dd H:mm:ss", CultureInfo.InvariantCulture);
                     case DateFormats.DEFAULT:
                         return date.ToString(CultureInfo.CurrentCulture.DateTimeFormat);
                     default:
