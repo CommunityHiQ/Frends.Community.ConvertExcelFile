@@ -103,7 +103,7 @@ namespace Frends.Community.ConvertExcelFileTests
             _options.DateFormat = DateFormats.MMDDYYYY;
             _options.ShortDatePattern = true;
             var result = ExcelClass.ConvertExcelFile(_input, _options, new CancellationToken());
-            var expectedResult = @"<workbookworkbook_name=""TestDateFormat.xlsx""><worksheetworksheet_name=""Sheet1""><rowrow_header=""1""><columncolumn_header=""A"">1</column><columncolumn_header=""B"">2</column><columncolumn_header=""C"">3</column><columncolumn_header=""D"">4</column></row><rowrow_header=""2""><columncolumn_header=""A"">12/12/2021</column><columncolumn_header=""B"">2/25/2021</column><columncolumn_header=""C"">5/12/2020</column><columncolumn_header=""D"">12/12/2021</column></row></worksheet></workbook>";
+            var expectedResult = @"<workbookworkbook_name=""TestDateFormat.xlsx""><worksheetworksheet_name=""Sheet1""><rowrow_header=""1""><columncolumn_header=""A"">1</column><columncolumn_header=""B"">2</column><columncolumn_header=""C"">3</column><columncolumn_header=""D"">4</column></row><rowrow_header=""2""><columncolumn_header=""A"">12/12/2021</column><columncolumn_header=""B"">02/25/2021</column><columncolumn_header=""C"">05/12/2020</column><columncolumn_header=""D"">12/12/2021</column></row></worksheet></workbook>";
             Assert.That(Regex.Replace(result.ToXml(), @"[\s+]", ""), Does.StartWith(Regex.Replace(expectedResult.ToString(), @"[\s+]", "")));
         }
 

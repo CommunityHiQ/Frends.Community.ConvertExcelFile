@@ -331,11 +331,11 @@ namespace Frends.Community.ConvertExcelFile
                 switch (options.DateFormat)
                 {
                     case DateFormats.DDMMYYYY:
-                        return date.ToString(new CultureInfo("en-FI").DateTimeFormat.ShortDatePattern);
+                        return date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                     case DateFormats.MMDDYYYY:
-                        return date.ToString(new CultureInfo("en-US").DateTimeFormat.ShortDatePattern);
+                        return date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
                     case DateFormats.YYYYMMDD:
-                        return date.ToString(new CultureInfo("ja-JP").DateTimeFormat.ShortDatePattern);
+                        return date.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
                     case DateFormats.DEFAULT:
                         return date.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
                     default:
