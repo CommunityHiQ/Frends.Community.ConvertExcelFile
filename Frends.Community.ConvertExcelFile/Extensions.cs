@@ -56,11 +56,11 @@ namespace Frends.Community.ConvertExcelFile
                     json.Append($"\"name\": \"{dt.TableName}\",");
                     json.Append("\"rows\": ");
 
-                    // building json from datatable
+                    // Building json from datatable.
                     if (dt.Rows.Count > 0)
                     {
                         json.Append("[");
-                        for (int i = 0; i < dt.Rows.Count; i++)
+                        for (var i = 0; i < dt.Rows.Count; i++)
                         {
                             var content = WriteRowToJson(dt, i, options).ToString();
                             if (!content.ToString().Equals("empty"))
@@ -137,7 +137,6 @@ namespace Frends.Community.ConvertExcelFile
             for (var j = 0; j < dt.Columns.Count; j++)
             {
                 var content = dt.Rows[i].ItemArray[j];
-                var type = content.GetType();
                 if (string.IsNullOrWhiteSpace(content.ToString()) == false)
                 {
                     if (content.GetType().Name == "DateTime")
@@ -186,10 +185,10 @@ namespace Frends.Community.ConvertExcelFile
                 OmitXmlDeclaration = true
             };
 
-            StringBuilder builder = new StringBuilder();
-            using (StringWriter sw = new StringWriter(builder))
+            var builder = new StringBuilder();
+            using (var sw = new StringWriter(builder))
             {
-                using (XmlWriter xw = XmlWriter.Create(sw, settings))
+                using (var xw = XmlWriter.Create(sw, settings))
                 {
                     // Write workbook element. Workbook is also known as sheet.
                     xw.WriteStartDocument();
@@ -202,20 +201,19 @@ namespace Frends.Community.ConvertExcelFile
                         // Read only wanted worksheets. If none is specified read all.
                         if (options.ReadOnlyWorkSheetWithName.Contains(table.TableName) || options.ReadOnlyWorkSheetWithName.Length == 0)
                         {
-                            // Write worksheet element
+                            // Write worksheet element.
                             xw.WriteStartElement("worksheet");
                             xw.WriteAttributeString("worksheet_name", table.TableName);
 
-                            for (int i = 0; i < table.Rows.Count; i++)
+                            for (var i = 0; i < table.Rows.Count; i++)
                             {
                                 cancellationToken.ThrowIfCancellationRequested();
-                                bool row_element_is_writed = false;
-                                for (int j = 0; j < table.Columns.Count; j++)
+                                var row_element_is_writed = false;
+                                for (var j = 0; j < table.Columns.Count; j++)
                                 {
-                                    cancellationToken.ThrowIfCancellationRequested();
-                                    // Write column only if it has some content
+                                    // Write column only if it has some content.
                                     var content = table.Rows[i].ItemArray[j];
-                                    if (String.IsNullOrWhiteSpace(content.ToString()) == false)
+                                    if (string.IsNullOrWhiteSpace(content.ToString()) == false)
                                     {
 
                                         if (row_element_is_writed == false)
@@ -269,13 +267,11 @@ namespace Frends.Community.ConvertExcelFile
 
             foreach (DataTable table in result.Tables)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                // Read only wanted worksheets. If none is specified read all. //
+                // Read only wanted worksheets. If none is specified read all.
                 if (options.ReadOnlyWorkSheetWithName.Contains(table.TableName) || options.ReadOnlyWorkSheetWithName.Length == 0)
                 {
                     for (var i = 0; i < table.Rows.Count; i++)
                     {
-                        cancellationToken.ThrowIfCancellationRequested();
                         for (var j = 0; j < table.Columns.Count; j++)
                         {
                             cancellationToken.ThrowIfCancellationRequested();
@@ -286,7 +282,7 @@ namespace Frends.Community.ConvertExcelFile
                             }
                             resultData.Append(item + options.CsvSeparator);
                         }
-                        // remove last CsvSeparator
+                        // Remove last CsvSeparator.
                         resultData.Length--;
                         resultData.Append(Environment.NewLine);
                     }
@@ -296,14 +292,14 @@ namespace Frends.Community.ConvertExcelFile
         }
 
         /// <summary>
-        /// a Helper method
+        /// A helper method.
         /// Converts column header index to letter, as Excel does in its GUI.
         /// </summary>
         /// <returns>String containing correct letter combination for column.</returns>
         public static string ColumnIndexToColumnLetter(int colIndex)
         {
-            int div = colIndex;
-            string colLetter = string.Empty;
+            var div = colIndex;
+            var colLetter = string.Empty;
             int mod;
             while (div > 0)
             {
@@ -315,16 +311,16 @@ namespace Frends.Community.ConvertExcelFile
         }
 
         /// <summary>
-        /// a Helper method 
-        /// Converts DateTime object to the DateFormat given as options
-        /// Return agent's date format in default
+        /// A helper method. 
+        /// Converts DateTime object to the DateFormat given as options.
+        /// Return agent's date format in default.
         /// </summary>
         /// <param name="date"></param>
         /// <param name="options"></param>
         /// <returns>string containing correct date format</returns>
         public static string ConvertDateTimes(DateTime date, Options options)
         {
-            // modify the date using date format var in options
+            // Modify the date using date format var in options.
             
             if (options.ShortDatePattern) 
             {

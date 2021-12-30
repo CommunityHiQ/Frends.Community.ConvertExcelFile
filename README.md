@@ -57,19 +57,19 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # Building
 
-Clone a copy of the repository
+Clone a copy of the repository.
 
 `git clone https://github.com/CommunityHiQ/Frends.Community.ConvertExcelFile.git`
 
-Rebuild the project
+Build the project.
 
 `dotnet build`
 
-Run tests
+Run tests.
 
 `dotnet test`
 
-Create a NuGet package
+Create a NuGet package.
 
 `dotnet pack --configuration Release`
 
@@ -91,3 +91,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | 1.6.0 | Input filename is now case sensitive. Updated libraries. |
 | 1.7.0 | Converted to support .Net Framework 4.7.1 and .Net Standard 2.0. |
 | 1.7.1 | Fixed issue #7: ToJson() should return json in usable format |
+| 1.7.2 | Fixed issue #8: Date times are conversion depends computer settings |

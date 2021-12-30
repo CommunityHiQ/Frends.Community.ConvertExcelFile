@@ -46,7 +46,7 @@ namespace Frends.Community.ConvertExcelFile
         public bool ThrowErrorOnFailure { get; set; }
 
         /// <summary>
-        /// Date format selection
+        /// Date format selection.
         /// </summary>
         [DisplayName("Date Format")]
         [DisplayFormat(DataFormatString = "Text")]
@@ -54,7 +54,7 @@ namespace Frends.Community.ConvertExcelFile
         public DateFormats DateFormat {  get; set; }
 
         /// <summary>
-        /// If set to true, dates will exclude timestamps from dates 
+        /// If set to true, dates will exclude timestamps from dates.
         /// Default false
         /// </summary>
         [DefaultValue("false")]
