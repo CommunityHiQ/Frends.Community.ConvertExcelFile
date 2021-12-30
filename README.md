@@ -40,6 +40,8 @@ Reads Excel file and converts it to XML, CSV and JSON according to the task inpu
 | CsvSeparator| string | Csv Separator | ; |
 | UseNumbersAsColumnHeaders| bool | If set to true, numbers will be used as column headers instead of letters (A = 1, B = 2...) | true |
 | ThrowErrorOnfailure| bool | Throws an exception if conversion fails. |  true |
+| DateFormat | DateFormat | Selection for date format | Possible values: DDMMYYYY, MMDDYYYY, YYYYMMDD |
+| ShortDatePattern | bool | Excludes timestamps from dates | false |
 
 ### Returns
 
