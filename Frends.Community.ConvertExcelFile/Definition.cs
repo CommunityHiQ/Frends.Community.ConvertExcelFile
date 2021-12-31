@@ -44,8 +44,45 @@ namespace Frends.Community.ConvertExcelFile
         /// </summary>
         [DefaultValue("true")]
         public bool ThrowErrorOnFailure { get; set; }
+
+        /// <summary>
+        /// Date format selection.
+        /// </summary>
+        [DisplayName("Date Format")]
+        [DisplayFormat(DataFormatString = "Text")]
+        [DefaultValue(DateFormats.DEFAULT)]
+        public DateFormats DateFormat {  get; set; }
+
+        /// <summary>
+        /// If set to true, dates will exclude timestamps from dates.
+        /// Default false
+        /// </summary>
+        [DefaultValue("false")]
+        public bool ShortDatePattern { get; set; }
     }
-    
+
+    #region Enumerations
+    public enum DateFormats
+    {
+        /// <summary>
+        /// default value
+        /// </summary>
+        DEFAULT,
+        /// <summary>
+        /// day/month/year
+        /// </summary>
+        DDMMYYYY,
+        /// <summary>
+        /// month/day/year
+        /// </summary>
+        MMDDYYYY,
+        /// <summary>
+        /// year/month/day
+        /// </summary>
+        YYYYMMDD
+    }
+    #endregion
+
     public class Result
     {
         /// <summary>
