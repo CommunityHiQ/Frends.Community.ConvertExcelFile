@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net471</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
 		<authors>HiQ Finland</authors>
 		<copyright>HiQ Finland</copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
