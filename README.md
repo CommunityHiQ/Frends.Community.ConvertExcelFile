@@ -95,3 +95,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | 1.7.1 | Fixed issue #7: ToJson() should return json in usable format |
 | 1.7.2 | Fixed issue #8: Date times are conversion depends computer settings |
 | 1.7.3 | Fixed issue #16: Changed FileStream class to use FileAccess.Read |
+| 2.0.0 | Updated frameworks to include .NET 6.0 and .NET 8.0. Updated package dependencies: Excel DataReader from 3.6.0 to 3.7.0 and System.Text.Encoding.CodePages from 5.0.0 to 8.0.0. Breaking change due to framework additions and major version updates on package dependencies |
